@@ -2,15 +2,17 @@ class Maze {
     //Properties
     xSize;
     ySize;
-    totalPath;
+    totalStep;
     mazeGrid;
+    totalKeys;
     
     //Constructor
-    constructor(sizeX, sizeY, pathTotal) {
+    constructor(sizeX, sizeY, stepTotal, keysTotal) {
 
         this.xSize = sizeX;
         this.ySize = sizeY;
-        this.totalPath = pathTotal;
+        this.totalStep = stepTotal;
+        this.totalKeys = keysTotal;
 
 
         //console.log(this.mazeGrid);
@@ -37,72 +39,98 @@ class Maze {
         var xCurrent = xStart;
         var yCurrent = yStart;
 
+        var stepCounter = 0;
+
+        //Create new keys
+        // var keyArray = new Array();
+        // var keyCounter = 10;
+        let nextKey = 100
+        let nextLock = 250
+        // for ( let k = 0; k < Array.length; ++k ) {
+
+        //     keyArray.push({"nextKey" : nextKey, "nextLock" : nextLock});
+        // }
+        // console.log(keyArray);
+
         //Starting point of maze => green.
         mazeGrid[xCurrent][yCurrent] = 2;
 
         console.log(xStart + " " + yStart);
 
-        for( let k = 0; k < 150; ++k ) {
+        while(stepCounter < this.totalStep) {
 
             var nextAxis = Math.floor((Math.random() * 2) + 1); // X-Axis = 1 | Y Axis = 2;
+
+            //Set direction and length of the next line.
             if (nextAxis == 1) {
 
-                if (xCurrent < this.xSize / 8) {
+                if (xCurrent < this.xSize / 12) {
                     nextDirection = 1;
-                } else if (xCurrent > this.xSize - (this.xSize / 8)) {
+                } else if (xCurrent > this.xSize - (this.xSize / 12)) {
                     nextDirection = -1;
                 } else {
-                    nextDirection = (Math.floor((Math.random() * 2) + 1) == 1) ? 1 : -1;
+                    nextDirection = (Math.floor((Math.random() * 100)) < 50 ) ? 1 : -1;
                 }
 
-                nextLength = Math.floor((Math.random() * 20) + 4);
+                nextLength = Math.floor((Math.random() * 20) + 4); //16
 
+                //Amend current grid.
                 for ( let x = 0; x < nextLength; ++x ) {     
                     xCurrent += nextDirection;
-                    
-                    nextDirection *= ( xCurrent < 4 ) ? -1 : 1;
-                    nextDirection *= ( xCurrent > this.xSize - 4 ) ? -1 : 1;
+                    //Flip direction if border is reached.
+                    nextDirection *= ( xCurrent < 4 ||  xCurrent > this.xSize - 4 ) ? -1 : 1;
 
+                    //Change grid value.
                     if (mazeGrid[xCurrent][yCurrent] == 0) {
                         mazeGrid[xCurrent][yCurrent] = 1;
-                    }   
+                    }
+                    if (stepCounter == nextKey) {
+                        mazeGrid[xCurrent][yCurrent] = 4;
+                    }
+                    if (stepCounter == nextLock) {
+                        mazeGrid[xCurrent][yCurrent] = 5;
+                    }
+                    stepCounter += 1; 
                 }
             }
             if (nextAxis == 2) {
 
-                if (yCurrent < this.ySize / 8) {
+                if (yCurrent < this.ySize / 12) {
                     nextDirection = 1;
-                } else if (yCurrent > this.ySize - (this.ySize / 8)) {
+                } else if (yCurrent > this.ySize - (this.ySize / 12)) {
                     nextDirection = -1;
                 } else {
-                    nextDirection = (Math.floor((Math.random() * 2) + 1) == 1) ? 1 : -1;
+                    nextDirection = (Math.floor((Math.random() * 100)) < 50) ? 1 : -1;
                 }
 
-                nextLength = Math.floor((Math.random() * 12) + 2);
+                nextLength = Math.floor((Math.random() * 20) + 2);
 
                 for ( let y = 0; y < nextLength; ++y ) {     
                     yCurrent += nextDirection;
-                    nextDirection *= ( yCurrent < 4 ) ? -1 : 1;
-                    nextDirection *= ( yCurrent > this.ySize - 4 ) ? -1 : 1;
 
-
+                    nextDirection *= ( yCurrent < 4 ||  yCurrent > this.ySize - 4 ) ? -1 : 1;
 
                     if (mazeGrid[xCurrent][yCurrent] == 0) {
                         mazeGrid[xCurrent][yCurrent] = 1;
-                    }  
+                    }
+                    if (stepCounter == nextKey) {
+                        mazeGrid[xCurrent][yCurrent] = 4;
+                    }
+                    if (stepCounter == nextLock) {
+                        mazeGrid[xCurrent][yCurrent] = 5;
+                    }
+                    stepCounter += 1;
                 }
-            }
-            
-           
+            }       
         }
+        //console.log(keyCounter);
         mazeGrid[xCurrent][yCurrent] = 3;
         return mazeGrid;
     }
 
-
     drawMaze(tileMap) {
 
-        let tileSize = 5;
+        let tileSize = 4;
         var drawMaze = document.getElementById("canvas").getContext("2d");
         
         var xSize = tileMap.length;
@@ -133,6 +161,16 @@ class Maze {
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
+                    case 4 : {
+                        drawMaze.fillStyle = "rgb(255,0,255)";
+                        drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
+                        break;
+                    }
+                    case 5 : {
+                        drawMaze.fillStyle = "rgb(0,255,255)";
+                        drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
+                        break;
+                    }
                 }
 
             }
@@ -147,4 +185,4 @@ class Maze {
 }
 
 
-let test = new Maze(150, 80, 4);
+let test = new Maze(150, 80, 1000, 1);
