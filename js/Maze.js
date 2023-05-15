@@ -24,7 +24,7 @@ class Maze {
     //Methods
     
     createMaze() {
-
+        //Setup empty grid.
         var mazeGrid = Array(this.xSize).fill().map(() => Array(this.ySize).fill(0));
 
         //init new maze
@@ -37,6 +37,7 @@ class Maze {
         var xCurrent = xStart;
         var yCurrent = yStart;
 
+        //Starting point of maze => green.
         mazeGrid[xCurrent][yCurrent] = 2;
 
         console.log(xStart + " " + yStart);
@@ -94,7 +95,7 @@ class Maze {
             
            
         }
-        mazeGrid[xCurrent][yCurrent] = 2;
+        mazeGrid[xCurrent][yCurrent] = 3;
         return mazeGrid;
     }
 
@@ -128,7 +129,7 @@ class Maze {
                         break;
                     }
                     case 3 : {
-                        drawMaze.fillStyle = "rgb(255,0,255)";
+                        drawMaze.fillStyle = "rgb(255,0,0)";
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
