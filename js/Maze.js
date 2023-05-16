@@ -41,16 +41,9 @@ class Maze {
 
         var stepCounter = 0;
 
-        //Create new keys
-        // var keyArray = new Array();
-        // var keyCounter = 10;
-        let nextKey = 100
-        let nextLock = 250
-        // for ( let k = 0; k < Array.length; ++k ) {
-
-        //     keyArray.push({"nextKey" : nextKey, "nextLock" : nextLock});
-        // }
-        // console.log(keyArray);
+        //Create new key and lock
+        let nextKey = this.totalStep / 4;
+        let nextLock = 3 * nextKey;
 
         //Starting point of maze => green.
         mazeGrid[xCurrent][yCurrent] = 2;
@@ -66,16 +59,17 @@ class Maze {
 
                 if (xCurrent < this.xSize / 12) {
                     nextDirection = 1;
-                } else if (xCurrent > this.xSize - (this.xSize / 12)) {
+                } else if (xCurrent > this.xSize - (this.xSize / 4)) {
                     nextDirection = -1;
                 } else {
                     nextDirection = (Math.floor((Math.random() * 100)) < 50 ) ? 1 : -1;
                 }
 
-                nextLength = Math.floor((Math.random() * 20) + 4); //16
+                nextLength = Math.floor((Math.random() * 24) + 12); //16
 
                 //Amend current grid.
-                for ( let x = 0; x < nextLength; ++x ) {     
+                for ( let x = 0; x < nextLength; ++x ) {
+
                     xCurrent += nextDirection;
                     //Flip direction if border is reached.
                     nextDirection *= ( xCurrent < 4 ||  xCurrent > this.xSize - 4 ) ? -1 : 1;
@@ -83,6 +77,7 @@ class Maze {
                     //Change grid value.
                     if (mazeGrid[xCurrent][yCurrent] == 0) {
                         mazeGrid[xCurrent][yCurrent] = 1;
+                        //mazeGrid[xCurrent][yCurrent + 1] = 1;
                     }
                     if (stepCounter == nextKey) {
                         mazeGrid[xCurrent][yCurrent] = 4;
@@ -97,13 +92,13 @@ class Maze {
 
                 if (yCurrent < this.ySize / 12) {
                     nextDirection = 1;
-                } else if (yCurrent > this.ySize - (this.ySize / 12)) {
+                } else if (yCurrent > this.ySize - (this.ySize / 4)) {
                     nextDirection = -1;
                 } else {
                     nextDirection = (Math.floor((Math.random() * 100)) < 50) ? 1 : -1;
                 }
 
-                nextLength = Math.floor((Math.random() * 20) + 2);
+                nextLength = Math.floor((Math.random() * 20) + 10);
 
                 for ( let y = 0; y < nextLength; ++y ) {     
                     yCurrent += nextDirection;
@@ -112,6 +107,7 @@ class Maze {
 
                     if (mazeGrid[xCurrent][yCurrent] == 0) {
                         mazeGrid[xCurrent][yCurrent] = 1;
+                        //mazeGrid[xCurrent + 1][yCurrent] = 1;
                     }
                     if (stepCounter == nextKey) {
                         mazeGrid[xCurrent][yCurrent] = 4;
@@ -130,7 +126,7 @@ class Maze {
 
     drawMaze(tileMap) {
 
-        let tileSize = 4;
+        let tileSize = 2;
         var drawMaze = document.getElementById("canvas").getContext("2d");
         
         var xSize = tileMap.length;
@@ -147,27 +143,27 @@ class Maze {
                         break;
                     }
                     case 1 : {
-                        drawMaze.fillStyle = "rgb(0,0,255)";
+                        drawMaze.fillStyle = "rgb(0,0,255)"; //path
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
                     case 2 : {
-                        drawMaze.fillStyle = "rgb(0,255,0)";
+                        drawMaze.fillStyle = "rgb(0,255,0)"; //Start (0)
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
                     case 3 : {
-                        drawMaze.fillStyle = "rgb(255,0,0)";
+                        drawMaze.fillStyle = "rgb(255,0,0)"; //End (1000)
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
                     case 4 : {
-                        drawMaze.fillStyle = "rgb(255,0,255)";
+                        drawMaze.fillStyle = "rgb(255,0,255)"; //key
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
                     case 5 : {
-                        drawMaze.fillStyle = "rgb(0,255,255)";
+                        drawMaze.fillStyle = "rgb(255,255,0)"; //lock
                         drawMaze.fillRect(tileSize * x, tileSize * y, tileSize, tileSize);
                         break;
                     }
@@ -185,4 +181,4 @@ class Maze {
 }
 
 
-let test = new Maze(150, 80, 1000, 1);
+let test = new Maze(150, 120, 1200, 1);
