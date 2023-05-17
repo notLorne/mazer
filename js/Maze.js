@@ -124,9 +124,9 @@ class Maze {
         return mazeGrid;
     }
 
-    drawMaze(tileMap) {
+    drawMaze(tileMap) { 
 
-        let tileSize = 2;
+        let tileSize = 4;
         var drawMaze = document.getElementById("canvas").getContext("2d");
         
         var xSize = tileMap.length;
