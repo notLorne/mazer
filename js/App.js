@@ -5,6 +5,8 @@ var lastFrame = Date.now();
 var timeDelta = -1;
 var framePerSecond = 30;
 var toUpdate;
+var gameWidth = 1000;
+var gameHeight = 600;
 
 //Game Objects
 const gamePainter = new Painter();
@@ -13,8 +15,7 @@ window.onload = (e) => {
     //PreGame setup
     
         //CREATE A FUNCTION TO GET THE SCREEN RESOLUTION TO ADAPT THE GAME WINDOW SIZE. TEMPORARY VALUE HERE.
-        gameWidth = 1000;
-        gameHeight = 600;
+
         console.log("variables init"); //OK caught by console.
     
     //Canvas creation.
