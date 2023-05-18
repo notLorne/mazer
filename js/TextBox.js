@@ -110,4 +110,4 @@ class TextBox {
 
 }
 
-var boxte = new TextBox("Thqs ps the f.st 50ne.Thqs ps tddhe fyrst line.", "canvas", 12, 12);
+//var boxte = new TextBox("teext box practice", "canvas", 12, 12);

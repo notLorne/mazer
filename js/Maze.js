@@ -181,4 +181,4 @@ class Maze {
 }
 
 
-let test = new Maze(150, 120, 1200, 1);
+//let test = new Maze(150, 120, 300, 1);
