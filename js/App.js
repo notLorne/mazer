@@ -7,9 +7,10 @@ var framePerSecond = 30;
 var toUpdate;
 var gameWidth = 1000;
 var gameHeight = 600;
+var documentBody;
 
 //Game Objects
-const gamePainter = new Painter();
+const gamePainter = new Painter(gameWidth, gameHeight);
 
 window.onload = (e) => { 
     //PreGame setup
@@ -19,7 +20,7 @@ window.onload = (e) => {
         console.log("variables init"); //OK caught by console.
     
     //Canvas creation.
-        var documentBody = document.getElementsByTagName("body")[0]; //Declare and init here for now...
+        documentBody = document.getElementsByTagName("body")[0]; //Declare and init here for now...
         //Background
         background = document.createElement('canvas');
         background.id = "background";

@@ -5,14 +5,18 @@ class Painter {
     static frontStack;
     static uiStack;
     static textAreaStack;
+    static xSize;
+    static ySize;
 
-    constructor() {
+    constructor(canvasSizeX, canvasSizeY) {
 
         this.floorStack = new Array();
         this.centerStack = new Array();
         this.frontStack = new Array();
         this.uiStack = new Array();
         //this.textAreaStack = new Array();
+        this.xSize = canvasSizeX;
+        this.ySize = canvasSizeY;
     }
 
     drawBackground(bgWidth, bgHeight, newR, newG, newB) {
@@ -49,6 +53,26 @@ class Painter {
         uiContext.imageSmoothingEnabled = false;
 
         //draw image test. WORKING
+    }
+    clearBackground() {
+        const bgContext = document.getElementById("background").getContext("2d");
+        bgContext.clearRect(0, 0, this.xSize, this.ySize);
+    }
+    clearFloor() {
+        const floorContext = document.getElementById("background").getContext("2d");
+        floorContext.clearRect(0, 0, this.xSize, this.ySize);
+    }
+    clearCenter() {
+        const centerContext = document.getElementById("background").getContext("2d");
+        centerContext.clearRect(0, 0, this.xSize, this.ySize);
+    }
+    clearFront() {
+        const frontContext = document.getElementById("background").getContext("2d");
+        frontContext.clearRect(0, 0, this.xSize, this.ySize);
+    }
+    clearUI() {
+        const uiContext = document.getElementById("background").getContext("2d");
+        uiContext.clearRect(0, 0, this.xSize, this.ySize);
     }
     
     addToStack(stackRef, object) {
