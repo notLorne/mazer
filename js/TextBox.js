@@ -19,7 +19,7 @@ class TextBox {
     destinationContext;
     textSize;
 
-    // typeEffect, typeTrigger // TO ADD TO CONSTRUCTOR
+    // letterColor, bgColor, typeEffect, typeTrigger, maxLettersWidth, maxLines, // TO ADD TO CONSTRUCTOR
     constructor(text, context, posX, posY){
 
         this.letterWidth = 5;
@@ -75,4 +75,4 @@ class TextBox {
     }
 }
 
-var boxte = new TextBox("testttts123", "canvas", 200, 133);
+var boxte = new TextBox("Hi I hope you are having a nice day", "canvas", 200, 133);
