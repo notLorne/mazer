@@ -14,7 +14,6 @@ class Maze {
         this.totalStep = stepTotal;
         this.totalKeys = keysTotal;
 
-
         //console.log(this.mazeGrid);
 
         this.mazeGrid = this.createMaze();
