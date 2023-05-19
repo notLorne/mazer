@@ -12,9 +12,9 @@ var isReady;
 
 console.log(isReady)
 
-const tb = new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 12, 12, 1);
+const tb = new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 12, 12, 2);
 const gamePainter = new Painter(gameWidth, gameHeight);
-gamePainter.drawBackground(getPaletteColor(34))
+gamePainter.drawBackground(getPaletteColor(12))
 
 console.log(getPaletteColor(0));
 
@@ -32,7 +32,6 @@ function gameloop() {
         gamePainter.clearCenter();
         //draw
         gamePainter.drawCenter();
-        //console.log(timeDelta);
         //Reset timeDelta
         lastFrame = Date.now();
         toUpdate = true;

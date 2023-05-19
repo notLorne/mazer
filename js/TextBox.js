@@ -21,24 +21,31 @@ class TextBox {
     destinationContext;
     boxSize;
     textSize;
+    isAlive;
+    isBgDrawn;
 
-    // letterColor, bgColor, typeEffect, boxSize // TO ADD TO CONSTRUCTOR
+    // letterColor, bgColor, typeEffect// TO ADD TO CONSTRUCTOR
     //type shall include textSize, number of line max and line max length.
     //As of now, only 81 chars can be entered on one line. max could be two line, for 162 character max for a message.
     //we might also want to have smaller boxes. This process doesnt really work optimally like that.
-    constructor(text, context, posX, posY, sizeOfBox){
+    constructor(text, context, posX, posY, sizeOfBox, letterColorCode, bgColorCode, typeEffectBool){
         
         this.letterWidth = 5; //CONST - width of the binary array.
         this.letterHeight = 7; //CONST - height of the binary array.
+
+        //Optional parameters
+        this.letterColorCode = (letterColorCode == undefined) ? 4 : letterColorCode;
+        this.textBoxColorCode = (bgColorCode == undefined) ? 33 : bgColorCode;
+        this.isTypeWriter = (typeEffectBool == undefined) ? false : typeEffectBool;
+
         //Context and textbox position.
         this.destinationContext = context;
         this.xPos = posX;
         this.yPos = posY;
+
         //Box size adjustment.
         this.boxSize = ( sizeOfBox == undefined ) ? 1 : sizeOfBox;
-
         this.textSize = 1 * this.boxSize;
-
         this.textLength = text.length;
         this.textLines = Math.ceil(this.textLength / 81);
 
@@ -56,6 +63,8 @@ class TextBox {
                 }
             } 
         }
+        this.isBgDrawn = false;
+
         //Should be changed because that wont work with animations...
         this.drawLetters(this.charArray)
     }
@@ -69,22 +78,26 @@ class TextBox {
         textContext.imageSmoothingEnabled= false;
 
         //Draw textbox background
-        textContext.fillStyle = "rgb(0,255,255)";
-        textContext.fillRect(this.xPos - 8, 
-                             this.yPos - 8, 
-                             (this.letterWidth + 1) * this.textSize * this.textLength + 16, 
-                             (this.letterHeight + 6) * this.textSize + 4)
-        
-        //Draw textbox outline
-        textContext.strokeStyle = "rgb(255,0,0)";
-        textContext.strokeRect(this.xPos - 6, 
-                            this.yPos - 6, 
-                            (this.letterWidth + 1) * this.textSize * this.textLength + 12, 
-                            (this.letterHeight + 6) * this.textSize);
+        if (this.isBgDrawn == false) {
+            textContext.fillStyle = getPaletteColor(this.textBoxColorCode);
+            textContext.fillRect(this.xPos - 8, 
+                                 this.yPos - 8, 
+                                 (this.letterWidth + 1) * this.textSize * this.textLength + 16, 
+                                 (this.letterHeight + 6) * this.textSize + 4)
+            
+            //Draw textbox outline
+            textContext.strokeStyle = getPaletteColor(this.letterColorCode);
+            textContext.strokeRect(this.xPos - 6, 
+                                this.yPos - 6, 
+                                (this.letterWidth + 1) * this.textSize * this.textLength + 12, 
+                                (this.letterHeight + 6) * this.textSize);
+            this.isBgDrawn = true;
+        }
+
         
         
         //Draw characters
-        textContext.fillStyle = "rgb(255,0,0)";
+        textContext.fillStyle = getPaletteColor(this.letterColorCode);
         for(let c = 0; c < letterArrays.length; ++c ){
 
             var currentChar = letterArrays[c][0];
