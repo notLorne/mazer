@@ -61,17 +61,20 @@ class TextBox {
     }
 
     drawLetters(letterArrays) {
-        
+        //Attributes
         var letterAdj;
+
         //Set context and smoothing
         const textContext = document.getElementById(this.destinationContext).getContext("2d");
         textContext.imageSmoothingEnabled= false;
+
         //Draw textbox background
         textContext.fillStyle = "rgb(0,255,255)";
         textContext.fillRect(this.xPos - 8, 
                              this.yPos - 8, 
                              (this.letterWidth + 1) * this.textSize * this.textLength + 16, 
                              (this.letterHeight + 6) * this.textSize + 4)
+        
         //Draw textbox outline
         textContext.strokeStyle = "rgb(255,0,0)";
         textContext.strokeRect(this.xPos - 6, 
