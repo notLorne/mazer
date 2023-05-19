@@ -4,7 +4,6 @@ class Painter {
     static centerStack;
     static frontStack;
     static uiStack;
-    static textAreaStack;
     static xSize;
     static ySize;
 

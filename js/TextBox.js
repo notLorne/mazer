@@ -1,5 +1,5 @@
 class TextBox {
-
+    index;
     outputText;
     textLength;
     textLines;
@@ -10,7 +10,9 @@ class TextBox {
     lineCounter;
     isTypeWriter;
     typeCounter;
+    typeCursor;
     typeTrigger;
+    isTypeOver;
     letterColorCode;
     textBoxColorCode;
 
@@ -28,7 +30,7 @@ class TextBox {
     //type shall include textSize, number of line max and line max length.
     //As of now, only 81 chars can be entered on one line. max could be two line, for 162 character max for a message.
     //we might also want to have smaller boxes. This process doesnt really work optimally like that.
-    constructor(text, context, posX, posY, sizeOfBox, letterColorCode, bgColorCode, typeEffectBool){
+    constructor(text, context, posX, posY, sizeOfBox, letterColorCode, bgColorCode, typeEffectBool, index){
         
         this.letterWidth = 5; //CONST - width of the binary array.
         this.letterHeight = 7; //CONST - height of the binary array.
@@ -36,7 +38,14 @@ class TextBox {
         //Optional parameters
         this.letterColorCode = (letterColorCode == undefined) ? 4 : letterColorCode;
         this.textBoxColorCode = (bgColorCode == undefined) ? 33 : bgColorCode;
+        this.index = (index == undefined) ? -1 : index;
+        
+        //Typewriter effect
         this.isTypeWriter = (typeEffectBool == undefined) ? false : typeEffectBool;
+        this.typeTrigger = (this.isTypeWriter) ? 150 : -1;
+        this.typeCounter = 0;
+        this.typeCursor = 0;
+        this.isTypeOver = false;
 
         //Context and textbox position.
         this.destinationContext = context;
@@ -48,8 +57,6 @@ class TextBox {
         this.textSize = 1 * this.boxSize;
         this.textLength = text.length;
         this.textLines = Math.ceil(this.textLength / 81);
-
-        console.log(this.textLines);
 
         this.outputText = text;
 
@@ -98,7 +105,7 @@ class TextBox {
         
         //Draw characters
         textContext.fillStyle = getPaletteColor(this.letterColorCode);
-        for(let c = 0; c < letterArrays.length; ++c ){
+        for(let c = 0; c < this.typeCursor; ++c ){
 
             var currentChar = letterArrays[c][0];
             //Adjust character height for small case g, j, p, q, y and comma ",".
@@ -121,5 +128,20 @@ class TextBox {
                 }
             }
         }
+    }
+
+    typing(timeDelta) {
+
+        if (this.isTypeWriter) {
+            this.typeCounter += timeDelta;
+            //console.log(this.typeCounter);
+            if (this.typeTrigger < this.typeCounter && !this.isTypeOver) {
+                this.typeCursor += 1;
+                this.typeCounter = 0;
+                this.drawLetters(this.charArray)
+            }
+        }
+        this.isTypeOver = (this.typeCursor == this.textLength) ? true : false;
+        //console.log(this.isTypeOver);
     }
 }
