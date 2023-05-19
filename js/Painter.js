@@ -14,16 +14,15 @@ class Painter {
         this.centerStack = new Array();
         this.frontStack = new Array();
         this.uiStack = new Array();
-        //this.textAreaStack = new Array();
         this.xSize = canvasSizeX;
         this.ySize = canvasSizeY;
     }
 
-    drawBackground(bgWidth, bgHeight, newR, newG, newB) {
+    drawBackground(newR, newG, newB) {
 
         const bgContext = document.getElementById("background").getContext("2d");
         bgContext.fillStyle  = this.colorFormatter(newR, newG, newB);
-        bgContext.fillRect(0, 0, bgWidth, bgHeight);
+        bgContext.fillRect(0, 0, this.xSize, this.ySize);
     }
     drawFloor() {
 
@@ -37,7 +36,7 @@ class Painter {
 
         const centerContext = document.getElementById("centerLayer").getContext("2d");
         centerContext.imageSmoothingEnabled = false;
-        centerContext.fillStyle = "rgba(255,255,0,0.5)";
+        centerContext.fillStyle = "rgba(255,255,0,1)";
         centerContext.fillRect(234, 234,123, 234);
     }
     drawFront() {
@@ -59,22 +58,22 @@ class Painter {
         bgContext.clearRect(0, 0, this.xSize, this.ySize);
     }
     clearFloor() {
-        const floorContext = document.getElementById("background").getContext("2d");
+        const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.clearRect(0, 0, this.xSize, this.ySize);
     }
     clearCenter() {
-        const centerContext = document.getElementById("background").getContext("2d");
+        const centerContext = document.getElementById("centerLayer").getContext("2d");
         centerContext.clearRect(0, 0, this.xSize, this.ySize);
     }
     clearFront() {
-        const frontContext = document.getElementById("background").getContext("2d");
+        const frontContext = document.getElementById("frontLayer").getContext("2d");
         frontContext.clearRect(0, 0, this.xSize, this.ySize);
     }
     clearUI() {
-        const uiContext = document.getElementById("background").getContext("2d");
+        const uiContext = document.getElementById("uiLayer").getContext("2d");
         uiContext.clearRect(0, 0, this.xSize, this.ySize);
     }
-    
+
     addToStack(stackRef, object) {
         //Different values for stackRef => 0 = floorStack, 1 = centerStack, 2 = frontStack, 3 = uiStack, 4 = textAreaStack.
 
@@ -83,10 +82,8 @@ class Painter {
             case 1: this.centerStack.push(object); break;
             case 2: this.frontStack.push(object); break;
             case 3: this.uiStack.push(object); break;
-            case 4: this.textAreaStack.push(object); break;
         }
     }
-
     colorFormatter(R, G, B, a) {
         return (a != undefined) ?   "rgba(" + R + "," + G + "," + B + "," + a + ")" : 
                                     "rgb(" + R + "," + G + "," + B + ")" ;

@@ -14,12 +14,9 @@ class Maze {
         this.totalStep = stepTotal;
         this.totalKeys = keysTotal;
 
-        //console.log(this.mazeGrid);
-
         this.mazeGrid = this.createMaze();
 
         this.drawMaze(this.mazeGrid);
-
     }
 
     //Methods
@@ -174,10 +171,4 @@ class Maze {
     }
 
     //Getters and setters
-
-
-
 }
-
-
-//let test = new Maze(150, 120, 300, 1);

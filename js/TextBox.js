@@ -106,8 +106,4 @@ class TextBox {
             }
         }
     }
-
-
 }
-
-//var boxte = new TextBox("teext box practice", "canvas", 12, 12);
