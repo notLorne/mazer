@@ -14,29 +14,44 @@ var textBoxStack = [];
 
 //Game Objects
 //Will adopt the same method as last time with at least two loops, gameplay and menu.
+//Game functions
+function textDisplay() {
+    for ( textBox of textBoxStack ) {
+        textBox.typing(timeDelta);   
+    }
+}
+
 function gameloop() {
 
-    timeDelta = Date.now() - lastFrame;
-    
+    timeDelta = Date.now() - lastFrame; 
     //
     if (timeDelta > (1000 / framePerSecond)) {
-        //Clear frames
+
+        //Clear frames for redraw.
+        gamePainter.clearFloor();
         gamePainter.clearCenter();
-        //tb.typing(timeDelta);
-        //console.log("frame")
+        gamePainter.clearFront();
+        gamePainter.clearUI();
+
         //draw
+        textDisplay();
+        gamePainter.drawFloor();
         gamePainter.drawCenter();
+        gamePainter.drawFront();
+        gamePainter.drawUI();
+
         //Reset timeDelta
         lastFrame = Date.now();
         toUpdate = true;
         timeDelta = 0;
+
     } else if (toUpdate) {
 
-        //update
+        //update game
         toUpdate = false;
     } 
 
-    //Listen
+    //Listen to input.
 
     window.requestAnimationFrame(gameloop);
 }
@@ -63,9 +78,7 @@ function menuloop() {
     window.requestAnimationFrame(menuloop);
 }
 
-//const tb = new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 512, 12, 2,4,21,true);
-textBoxStack.push(new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 512, 12, 2,4,21,true));
-console.log(textBoxStack);
+textBoxStack.push(new TextBox("test of a new texTBoxOX 9012!!", "textLayer", 512, 12, 2,4,21,true));
 const gamePainter = new Painter(gameWidth, gameHeight);
 const mazer = new Maze(80, 80, 600, 1);
 gamePainter.drawBackground(getPaletteColor(12))

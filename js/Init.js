@@ -61,6 +61,16 @@ window.onload = (e) => {
         uiLayer.style.zIndex = 8;
         documentBody.appendChild(uiLayer);
 
+        //Text Layer
+        textLayer = document.createElement('canvas');
+        textLayer.id = "textLayer";
+        textLayer.style.position = "absolute";
+        textLayer.width = gameWidth;
+        textLayer.height = gameHeight;
+        textLayer.style.border = "1px solid";
+        textLayer.style.zIndex = 10;
+        documentBody.appendChild(textLayer);
+
         console.log("Canvas created")
         console.log("script loading");
 

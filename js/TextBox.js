@@ -39,10 +39,10 @@ class TextBox {
         this.letterColorCode = (letterColorCode == undefined) ? 4 : letterColorCode;
         this.textBoxColorCode = (bgColorCode == undefined) ? 33 : bgColorCode;
         this.index = (index == undefined) ? -1 : index;
-        
+
         //Typewriter effect
         this.isTypeWriter = (typeEffectBool == undefined) ? false : typeEffectBool;
-        this.typeTrigger = (this.isTypeWriter) ? 150 : -1;
+        this.typeTrigger = (this.isTypeWriter) ? 50 : -1;
         this.typeCounter = 0;
         this.typeCursor = 0;
         this.isTypeOver = false;
@@ -53,7 +53,10 @@ class TextBox {
         this.yPos = posY;
 
         //Box size adjustment.
+        // Box sizes could represent certain styles. like short box, big dialog box, small dialog box etc...
         this.boxSize = ( sizeOfBox == undefined ) ? 1 : sizeOfBox;
+
+        //Text size adjustment.
         this.textSize = 1 * this.boxSize;
         this.textLength = text.length;
         this.textLines = Math.ceil(this.textLength / 81);
@@ -101,8 +104,6 @@ class TextBox {
             this.isBgDrawn = true;
         }
 
-        
-        
         //Draw characters
         textContext.fillStyle = getPaletteColor(this.letterColorCode);
         for(let c = 0; c < this.typeCursor; ++c ){
