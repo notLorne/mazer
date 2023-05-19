@@ -123,7 +123,7 @@ class Maze {
     drawMaze(tileMap) { 
 
         let tileSize = 4;
-        var drawMaze = document.getElementById("canvas").getContext("2d");
+        var drawMaze = document.getElementById("frontLayer").getContext("2d");
         
         var xSize = tileMap.length;
         var ySize = tileMap[0].length;

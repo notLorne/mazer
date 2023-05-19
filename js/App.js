@@ -12,11 +12,14 @@ var isReady;
 
 console.log(isReady)
 
-const tb = new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 12, 12, 2);
+const tb = new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 512, 12, 2);
 const gamePainter = new Painter(gameWidth, gameHeight);
+const mazer = new Maze(80, 80, 600, 1);
 gamePainter.drawBackground(getPaletteColor(12))
 
 console.log(getPaletteColor(0));
+
+
 
 window.requestAnimationFrame(gameloop);
 
