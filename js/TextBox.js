@@ -37,7 +37,7 @@ class TextBox {
         //Box size adjustment.
         this.boxSize = ( sizeOfBox == undefined ) ? 1 : sizeOfBox;
 
-        this.textSize = 2 * this.boxSize;
+        this.textSize = 1 * this.boxSize;
 
         this.textLength = text.length;
         this.textLines = Math.ceil(this.textLength / 81);

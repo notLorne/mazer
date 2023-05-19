@@ -14,7 +14,9 @@ console.log(isReady)
 
 const tb = new TextBox("test of a new texTBoxOX 9012!!", "uiLayer", 12, 12, 1);
 const gamePainter = new Painter(gameWidth, gameHeight);
-gamePainter.drawBackground(0,128,0)
+gamePainter.drawBackground(getPaletteColor(34))
+
+console.log(getPaletteColor(0));
 
 window.requestAnimationFrame(gameloop);
 

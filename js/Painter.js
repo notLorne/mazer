@@ -18,10 +18,10 @@ class Painter {
         this.ySize = canvasSizeY;
     }
 
-    drawBackground(newR, newG, newB) {
+    drawBackground(paletteColor) {
 
         const bgContext = document.getElementById("background").getContext("2d");
-        bgContext.fillStyle  = this.colorFormatter(newR, newG, newB);
+        bgContext.fillStyle  = paletteColor;
         bgContext.fillRect(0, 0, this.xSize, this.ySize);
     }
     drawFloor() {
