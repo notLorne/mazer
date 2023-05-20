@@ -9,6 +9,7 @@ var gameWidth = 1000;
 var gameHeight = 600;
 var documentBody;
 var isReady;
+var menuState;
 
 var textBoxStack = [];
 
@@ -78,7 +79,11 @@ function menuloop() {
     window.requestAnimationFrame(menuloop);
 }
 
-textBoxStack.push(new TextBox("test of a new texTBoxOX 9012!!", "textLayer", 512, 12, 2,4,21,true));
+textBoxStack.push(new TextBox("qweQWEqweQWEqw16", "textLayer", 12, 12, "option",4,21,true));
+textBoxStack.push(new TextBox("sasdASDASDasdASDasdASDASdASDAS32", "textLayer", 12, 72, "small",7,13,false));
+textBoxStack.push(new TextBox("jkhjhkjhkjhkjnjnkjnkuiukujhkuhkujh36", "textLayer", 12, 128, "medium",0,7,true));
+textBoxStack.push(new TextBox("asdasdsadasdasdasdasdsadasdagjhgjhgjghjghjghjhhjgjhg54", "textLayer", 12, 222, "large",13,45,false));
+
 const gamePainter = new Painter(gameWidth, gameHeight);
 const mazer = new Maze(80, 80, 600, 1);
 gamePainter.drawBackground(getPaletteColor(12))

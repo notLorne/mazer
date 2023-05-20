@@ -2,7 +2,8 @@ class TextBox {
     index;
     outputText;
     textLength;
-    textLines;
+    lineTotal;
+    lineLength;
     charArray;
     maxLength;
 
@@ -30,7 +31,7 @@ class TextBox {
     //type shall include textSize, number of line max and line max length.
     //As of now, only 81 chars can be entered on one line. max could be two line, for 162 character max for a message.
     //we might also want to have smaller boxes. This process doesnt really work optimally like that.
-    constructor(text, context, posX, posY, sizeOfBox, letterColorCode, bgColorCode, typeEffectBool, index){
+    constructor(text, context, posX, posY, typeOfBox, letterColorCode, bgColorCode, typeEffectBool, index){
         
         this.letterWidth = 5; //CONST - width of the binary array.
         this.letterHeight = 7; //CONST - height of the binary array.
@@ -54,14 +55,33 @@ class TextBox {
 
         //Box size adjustment.
         // Box sizes could represent certain styles. like short box, big dialog box, small dialog box etc...
-        this.boxSize = ( sizeOfBox == undefined ) ? 1 : sizeOfBox;
+        /*
+        Box types : 
+        0 - Option box
+        1 - Small text box 
+        2 - medium text box
+        3 - large text box
+        */
+        this.outputText = text;
+        this.textLength = text.length;
+
+        // this.boxSize =  ( typeOfBox == undefined ) ? 1 : 
+        //                 ( typeOfBox == "option" ) ? 3 :
+        //                 ( typeOfBox == "small" ) ? 2 : 
+        //                 ( typeOfBox == "medium" ) ? 3 :
+        //                 ( typeOfBox == "large" ) ? 3 : 1;
+        // this.lineTotal =    ( typeOfBox == undefined ) ? 1 : 
+        //                     ( typeOfBox == "medium" ) ? 2 :
+        //                     ( typeOfBox == "large" ) ? 2 : 1;
+        this.textSize = ( typeOfBox == undefined ) ? 1 : 
+                        ( typeOfBox == "option" ) ? 4 :
+                        ( typeOfBox == "large" ) ? 3 : 2;
 
         //Text size adjustment.
-        this.textSize = 1 * this.boxSize;
-        this.textLength = text.length;
-        this.textLines = Math.ceil(this.textLength / 81);
+        
+        //this.lineTotal = Math.ceil(this.textLength / 81);
 
-        this.outputText = text;
+        
 
         // Binary codes for each letter of the string
         this.charArray = [];
@@ -121,8 +141,8 @@ class TextBox {
                 for ( let j = 0; j < 5; ++j ) {
 
                     if(currentChar.charAt((k * 5) + j) == 1) {
-                        textContext.fillRect(this.xPos + (j * this.textSize) + (c * (this.letterWidth + 1) * this.textSize), 
-                                             this.yPos + (k * this.textSize) + letterAdj, 
+                        textContext.fillRect(this.xPos + (j * this.textSize + 1) + (c * (this.letterWidth + 1) * this.textSize), 
+                                             this.yPos + ((this.textSize - 2) * 4) + (k * this.textSize) + letterAdj, 
                                              this.textSize, 
                                              this.textSize);
                     }
@@ -139,9 +159,14 @@ class TextBox {
             if (this.typeTrigger < this.typeCounter && !this.isTypeOver) {
                 this.typeCursor += 1;
                 this.typeCounter = 0;
-                this.drawLetters(this.charArray)
+                this.drawLetters(this.charArray);
             }
+        } else {
+            this.typeCursor = this.textLength;
+            this.drawLetters(this.charArray);
         }
+
+        
         this.isTypeOver = (this.typeCursor == this.textLength) ? true : false;
         //console.log(this.isTypeOver);
     }
