@@ -10,12 +10,28 @@ var gameHeight = 600;
 var documentBody;
 var isReady;
 var menuState;
+var zoomTarget;
+var currentZoom;
+var zoomSpeed;
+
 
 var textBoxStack = [];
 
 //Game Objects
 //Will adopt the same method as last time with at least two loops, gameplay and menu.
 //Game functions
+
+function zoomCamera() { // TO BE DELETED. IIT IS A TEST FUNCTION.
+    if(gamePainter.zoomCurrent > 2) {
+        gamePainter.zoomTarget = 0.4;
+        console.log(gamePainter.getCurrentZoomLevel())
+    }
+    if(gamePainter.zoomCurrent < 0.5) {
+        gamePainter.zoomTarget = 2.1;
+        console.log(gamePainter.zoomCurrent)
+    }
+}
+
 function textDisplay() {
     for ( textBox of textBoxStack ) {
         textBox.typing(timeDelta);   
@@ -33,6 +49,9 @@ function gameloop() {
         gamePainter.clearCenter();
         gamePainter.clearFront();
         gamePainter.clearUI();
+        gamePainter.clearText();
+        //zoomCamera();
+        gamePainter.cameraZoom()
 
         //draw
         textDisplay();
@@ -45,9 +64,10 @@ function gameloop() {
         lastFrame = Date.now();
         toUpdate = true;
         timeDelta = 0;
-
+        
+        //console.log(gamePainter.getCurrentZoomLevel())
     } else if (toUpdate) {
-
+        
         //update game
         toUpdate = false;
     } 

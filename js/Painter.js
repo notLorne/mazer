@@ -7,6 +7,12 @@ class Painter {
     static xSize;
     static ySize;
 
+    zoomCurrent;
+    zoomTarget;
+    zoomDelta;
+    zoomSpeed;
+
+
     constructor(canvasSizeX, canvasSizeY) {
 
         this.floorStack = new Array();
@@ -15,11 +21,20 @@ class Painter {
         this.uiStack = new Array();
         this.xSize = canvasSizeX;
         this.ySize = canvasSizeY;
-    }
 
+        this.zoomCurrent = 1;
+        this.zoomTarget = 1.14;
+        this.zoomSpeed = 5
+        this.zoomDelta = 0;
+    }
+    cameraZoom() {
+
+    }
     drawBackground(paletteColor) {
 
         const bgContext = document.getElementById("background").getContext("2d");
+        bgContext.imageSmoothingEnabled = false;
+
         bgContext.fillStyle  = paletteColor;
         bgContext.fillRect(0, 0, this.xSize, this.ySize);
     }
@@ -28,6 +43,7 @@ class Painter {
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
+        floorContext.scale(this.zoomCurrent, this.zoomCurrent);
         floorContext.fillStyle = "rgba(0,255,0,0.5)";
         floorContext.fillRect(456, 123,123, 234);
     }
@@ -35,13 +51,18 @@ class Painter {
 
         const centerContext = document.getElementById("centerLayer").getContext("2d");
         centerContext.imageSmoothingEnabled = false;
+        
+        centerContext.scale(this.zoomCurrent, this.zoomCurrent);
         centerContext.fillStyle = "rgba(255,255,0,1)";
         centerContext.fillRect(234, 234,123, 234);
+
     }
     drawFront() {
 
         const frontContext = document.getElementById("frontLayer").getContext("2d");
         frontContext.imageSmoothingEnabled = false;
+
+        frontContext.scale(this.zoomCurrent, this.zoomCurrent);
         frontContext.fillStyle = "rgba(255,0,255,0.95)";
         frontContext.fillRect(345, 345,123, 234);
     }
@@ -72,7 +93,10 @@ class Painter {
         const uiContext = document.getElementById("uiLayer").getContext("2d");
         uiContext.clearRect(0, 0, this.xSize, this.ySize);
     }
-
+    clearText() {
+        const textContext = document.getElementById("textLayer").getContext("2d");
+        textContext.clearRect(0, 0, this.xSize, this.ySize);
+    }
     addToStack(stackRef, object) {
         //Different values for stackRef => 0 = floorStack, 1 = centerStack, 2 = frontStack, 3 = uiStack, 4 = textAreaStack.
 
@@ -87,5 +111,16 @@ class Painter {
         return (a != undefined) ?   "rgba(" + R + "," + G + "," + B + "," + a + ")" : 
                                     "rgb(" + R + "," + G + "," + B + ")" ;
         
+    }
+
+    //Setters, getters
+    getCurrentZoomLevel() {
+        return this.zoomCurrent;
+    }
+    setTargetZoomLevel(targetLevel) {
+        this.zoomTarget = targetLevel;
+    }
+    setSpeedZoomLevel(newDelta) {
+        this.zoomDelta = newDelta;
     }
 }

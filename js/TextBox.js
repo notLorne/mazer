@@ -65,23 +65,9 @@ class TextBox {
         this.outputText = text;
         this.textLength = text.length;
 
-        // this.boxSize =  ( typeOfBox == undefined ) ? 1 : 
-        //                 ( typeOfBox == "option" ) ? 3 :
-        //                 ( typeOfBox == "small" ) ? 2 : 
-        //                 ( typeOfBox == "medium" ) ? 3 :
-        //                 ( typeOfBox == "large" ) ? 3 : 1;
-        // this.lineTotal =    ( typeOfBox == undefined ) ? 1 : 
-        //                     ( typeOfBox == "medium" ) ? 2 :
-        //                     ( typeOfBox == "large" ) ? 2 : 1;
         this.textSize = ( typeOfBox == undefined ) ? 1 : 
                         ( typeOfBox == "option" ) ? 4 :
                         ( typeOfBox == "large" ) ? 3 : 2;
-
-        //Text size adjustment.
-        
-        //this.lineTotal = Math.ceil(this.textLength / 81);
-
-        
 
         // Binary codes for each letter of the string
         this.charArray = [];
@@ -93,10 +79,32 @@ class TextBox {
                 }
             } 
         }
-        this.isBgDrawn = false;
+
 
         //Should be changed because that wont work with animations...
         this.drawLetters(this.charArray)
+    }
+    drawBackground() {
+
+        const textContext = document.getElementById(this.destinationContext).getContext("2d");
+        textContext.imageSmoothingEnabled= false;
+
+        //Draw textbox background
+
+        textContext.fillStyle = getPaletteColor(this.textBoxColorCode);
+        textContext.fillRect(this.xPos - 8, 
+                                this.yPos - 8, 
+                                (this.letterWidth + 1) * this.textSize * this.textLength + 16, 
+                                (this.letterHeight + 6) * this.textSize + 4)
+        
+        //Draw textbox outline
+        textContext.strokeStyle = getPaletteColor(this.letterColorCode);
+        textContext.strokeRect(this.xPos - 6, 
+                            this.yPos - 6, 
+                            (this.letterWidth + 1) * this.textSize * this.textLength + 12, 
+                            (this.letterHeight + 6) * this.textSize);
+
+       
     }
 
     drawLetters(letterArrays) {
@@ -106,23 +114,6 @@ class TextBox {
         //Set context and smoothing
         const textContext = document.getElementById(this.destinationContext).getContext("2d");
         textContext.imageSmoothingEnabled= false;
-
-        //Draw textbox background
-        if (this.isBgDrawn == false) {
-            textContext.fillStyle = getPaletteColor(this.textBoxColorCode);
-            textContext.fillRect(this.xPos - 8, 
-                                 this.yPos - 8, 
-                                 (this.letterWidth + 1) * this.textSize * this.textLength + 16, 
-                                 (this.letterHeight + 6) * this.textSize + 4)
-            
-            //Draw textbox outline
-            textContext.strokeStyle = getPaletteColor(this.letterColorCode);
-            textContext.strokeRect(this.xPos - 6, 
-                                this.yPos - 6, 
-                                (this.letterWidth + 1) * this.textSize * this.textLength + 12, 
-                                (this.letterHeight + 6) * this.textSize);
-            this.isBgDrawn = true;
-        }
 
         //Draw characters
         textContext.fillStyle = getPaletteColor(this.letterColorCode);
@@ -153,6 +144,8 @@ class TextBox {
 
     typing(timeDelta) {
 
+        this.drawBackground();
+
         if (this.isTypeWriter) {
             this.typeCounter += timeDelta;
             //console.log(this.typeCounter);
@@ -160,6 +153,8 @@ class TextBox {
                 this.typeCursor += 1;
                 this.typeCounter = 0;
                 this.drawLetters(this.charArray);
+            } else {
+                this.drawLetters(this.charArray)
             }
         } else {
             this.typeCursor = this.textLength;
