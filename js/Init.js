@@ -87,11 +87,17 @@ window.onload = (e) => {
         loadScript("js/Painter.js");
         loadScript("js/TextBox.js");
         loadScript("js/alphaBin.js");
+        loadScript("js/Animations.js");
         loadScript("js/colorPalette.js");
+
         loadScript("js/Maze.js");
         loadScript("js/Actors.js");
 
         loadScript("js/App.js");
 
+
+
         isReady = true;
+        console.log("Init loaded :" + isReady)
+
 }

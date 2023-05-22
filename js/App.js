@@ -14,7 +14,6 @@ var zoomTarget;
 var currentZoom;
 var zoomSpeed;
 
-
 var textBoxStack = [];
 
 //Game Objects
@@ -108,5 +107,4 @@ const gamePainter = new Painter(gameWidth, gameHeight);
 const mazer = new Maze(80, 80, 600, 1);
 gamePainter.drawBackground(getPaletteColor(12))
 
-console.log("Init loaded :" + isReady)
 window.requestAnimationFrame(gameloop);

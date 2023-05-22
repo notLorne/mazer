@@ -1,16 +1,19 @@
 class Painter {
 
-    static floorStack;
-    static centerStack;
-    static frontStack;
-    static uiStack;
-    static xSize;
-    static ySize;
+    floorStack;
+    centerStack;
+    frontStack;
+    uiStack;
+    xSize;
+    ySize;
 
     zoomCurrent;
     zoomTarget;
     zoomDelta;
     zoomSpeed;
+    zoomDone;
+    xContextAdj;
+    yContextAdj;
 
 
     constructor(canvasSizeX, canvasSizeY) {
@@ -22,10 +25,12 @@ class Painter {
         this.xSize = canvasSizeX;
         this.ySize = canvasSizeY;
 
-        this.zoomCurrent = 1;
+        this.zoomCurrent = 2;
         this.zoomTarget = 1.14;
-        this.zoomSpeed = 5
+        this.zoomSpeed = 1
         this.zoomDelta = 0;
+        this.xContextAdj = 0;
+        this.yContextAdj = 0;
     }
     cameraZoom() {
 
@@ -43,18 +48,20 @@ class Painter {
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
-        floorContext.scale(this.zoomCurrent, this.zoomCurrent);
-        floorContext.fillStyle = "rgba(0,255,0,0.5)";
-        floorContext.fillRect(456, 123,123, 234);
+        //floorContext.scale(this.zoomCurrent, this.zoomCurrent);
+        floorContext.fillStyle = "rgba(0,255,0,1)";
+        floorContext.fillRect(456, 123,123 * (this.zoomCurrent) , 123 * (this.zoomCurrent));
     }
     drawCenter() {
 
         const centerContext = document.getElementById("centerLayer").getContext("2d");
         centerContext.imageSmoothingEnabled = false;
         
-        centerContext.scale(this.zoomCurrent, this.zoomCurrent);
+        //centerContext.scale(this.zoomCurrent, this.zoomCurrent);
         centerContext.fillStyle = "rgba(255,255,0,1)";
-        centerContext.fillRect(234, 234,123, 234);
+        centerContext.fillRect(234, 234,123 * (this.zoomCurrent), 234 * (this.zoomCurrent));
+
+        //centerContext.drawImage("assets/fronttest1.png", 423,789);
 
     }
     drawFront() {
@@ -62,9 +69,9 @@ class Painter {
         const frontContext = document.getElementById("frontLayer").getContext("2d");
         frontContext.imageSmoothingEnabled = false;
 
-        frontContext.scale(this.zoomCurrent, this.zoomCurrent);
-        frontContext.fillStyle = "rgba(255,0,255,0.95)";
-        frontContext.fillRect(345, 345,123, 234);
+        //frontContext.scale(this.zoomCurrent, this.zoomCurrent);
+        frontContext.fillStyle = "rgba(255,0,255,1)";
+        frontContext.fillRect(345, 345,123 * (this.zoomCurrent), 234 * (this.zoomCurrent));
     }
     drawUI() {
 
@@ -119,6 +126,7 @@ class Painter {
     }
     setTargetZoomLevel(targetLevel) {
         this.zoomTarget = targetLevel;
+        this.zoomDone = false;
     }
     setSpeedZoomLevel(newDelta) {
         this.zoomDelta = newDelta;
