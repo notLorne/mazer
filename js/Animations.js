@@ -28,6 +28,8 @@ for ( let k = 0; k < 8; ++k ) {
 }
 
 class Animations {
+    static frameSkip;
+
     static id;
     static sizeX;
     static sizeY;
@@ -50,7 +52,13 @@ class Animations {
     }
 
     getFrame() {
-        this.currentFrame = (this.currentFrame == this.maxFrame) ? 0 : this.currentFrame + 1;
+        //skip frame must be return 15 frame per second.. so
+        if (this.frameSkip < 1) {
+            this.frameSkip ++;
+        } else {
+            this.currentFrame = (this.currentFrame == this.maxFrame) ? 0 : this.currentFrame + 1;
+            this.frameSkip = 0;
+        }
         return this.currentAnimation[this.currentFrame]; 
     }
     setPosition(newX, newY) {

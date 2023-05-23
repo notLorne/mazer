@@ -3,7 +3,7 @@
 
 var lastFrame = Date.now();
 var timeDelta = -1;
-var framePerSecond = 15;
+var framePerSecond = 30;
 var toUpdate;
 var gameWidth = 1000;
 var gameHeight = 600;
@@ -49,6 +49,7 @@ function gameloop() {
         gamePainter.clearFront();
         gamePainter.clearUI();
         gamePainter.clearText();
+
         //zoomCamera();
         gamePainter.cameraZoom()
 
@@ -58,6 +59,7 @@ function gameloop() {
         gamePainter.drawCenter();
         gamePainter.drawFront();
         gamePainter.drawUI();
+        mazer.drawMaze()
 
         //Reset timeDelta
         lastFrame = Date.now();
@@ -108,6 +110,9 @@ const mazer = new Maze(80, 80, 600, 1);
 gamePainter.drawBackground(getPaletteColor(32));
 
 //const animTest = new Animations(playerRunningBack);
+//Animation should be replaced with the object themselves so they dont have to be replaced everytime 
+//an actor state changes. Animations should only be used for static immobile animations.
+//So they will be both sharing some aparameters. Actors needs to be moved around. 
 const animTest2 = new Animations(playerRunningSide);
 
 //gamePainter.addToStack(1, animTest);

@@ -16,7 +16,7 @@ class Maze {
 
         this.mazeGrid = this.createMaze();
 
-        this.drawMaze(this.mazeGrid);
+        //this.drawMaze(this.mazeGrid);
     }
 
     //Methods
@@ -120,8 +120,10 @@ class Maze {
         return mazeGrid;
     }
 
-    drawMaze(tileMap) { 
-
+    drawMaze() {
+        
+        console.log("maze")
+        var tileMap = this.mazeGrid;
         let tileSize = 4;
         var drawMaze = document.getElementById("frontLayer").getContext("2d");
         
