@@ -61,8 +61,7 @@ class Painter {
         centerContext.fillStyle = "rgba(255,255,0,1)";
         centerContext.fillRect(234, 234,123 * (this.zoomCurrent), 234 * (this.zoomCurrent));
 
-        //centerContext.drawImage("assets/fronttest1.png", 423,789);
-
+        centerContext.drawImage(playerStillSide[0], 12,321);
     }
     drawFront() {
 
