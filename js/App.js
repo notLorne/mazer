@@ -3,7 +3,7 @@
 
 var lastFrame = Date.now();
 var timeDelta = -1;
-var framePerSecond = 60;
+var framePerSecond = 15;
 var toUpdate;
 var gameWidth = 1000;
 var gameHeight = 600;
@@ -105,6 +105,13 @@ textBoxStack.push(new TextBox("asdasdsadasdasdasdasdsadasdagjhgjhgjghjghjghjhhjg
 
 const gamePainter = new Painter(gameWidth, gameHeight);
 const mazer = new Maze(80, 80, 600, 1);
-gamePainter.drawBackground(getPaletteColor(12))
+gamePainter.drawBackground(getPaletteColor(32));
+
+//const animTest = new Animations(playerRunningBack);
+const animTest2 = new Animations(playerRunningSide);
+
+//gamePainter.addToStack(1, animTest);
+gamePainter.addToStack(1, animTest2);
+
 
 window.requestAnimationFrame(gameloop);

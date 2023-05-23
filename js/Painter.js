@@ -22,10 +22,11 @@ class Painter {
         this.centerStack = new Array();
         this.frontStack = new Array();
         this.uiStack = new Array();
+
         this.xSize = canvasSizeX;
         this.ySize = canvasSizeY;
 
-        this.zoomCurrent = 2;
+        this.zoomCurrent = 4;
         this.zoomTarget = 1.14;
         this.zoomSpeed = 1
         this.zoomDelta = 0;
@@ -61,7 +62,11 @@ class Painter {
         centerContext.fillStyle = "rgba(255,255,0,1)";
         centerContext.fillRect(234, 234,123 * (this.zoomCurrent), 234 * (this.zoomCurrent));
 
-        centerContext.drawImage(playerStillSide[0], 12,321);
+        centerContext.drawImage(playerStillSide[0], 12,321,120,200);
+
+        for ( let anim of this.centerStack ) {
+            centerContext.drawImage(anim.getFrame(),272,321,anim.sizeX * (this.zoomCurrent), anim.sizeY * (this.zoomCurrent));
+        }
     }
     drawFront() {
 
@@ -106,12 +111,14 @@ class Painter {
     addToStack(stackRef, object) {
         //Different values for stackRef => 0 = floorStack, 1 = centerStack, 2 = frontStack, 3 = uiStack, 4 = textAreaStack.
 
-        switch(stackRef) {
-            case 0: this.floorStack.push(object); break;
-            case 1: this.centerStack.push(object); break;
-            case 2: this.frontStack.push(object); break;
-            case 3: this.uiStack.push(object); break;
-        }
+            switch(stackRef) {
+                case 0: this.floorStack.push(object); break;
+                case 1: this.centerStack.push(object); break;
+                case 2: this.frontStack.push(object); break;
+                case 3: this.uiStack.push(object); break;
+            }
+        
+
     }
     colorFormatter(R, G, B, a) {
         return (a != undefined) ?   "rgba(" + R + "," + G + "," + B + "," + a + ")" : 
