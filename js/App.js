@@ -30,13 +30,11 @@ function zoomCamera() { // TO BE DELETED. IIT IS A TEST FUNCTION.
         console.log(gamePainter.zoomCurrent)
     }
 }
-
 function textDisplay() {
     for ( textBox of textBoxStack ) {
         textBox.typing(timeDelta);   
     }
 }
-
 function gameloop() {
 
     timeDelta = Date.now() - lastFrame; 

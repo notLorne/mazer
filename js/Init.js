@@ -86,6 +86,7 @@ window.onload = (e) => {
         
         loadScript("js/alphaBin.js");
         loadScript("js/colorPalette.js");
+        loadScript("js/textures.js");
 
         loadScript("js/Animations.js");
 

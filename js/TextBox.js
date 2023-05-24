@@ -1,6 +1,7 @@
 class TextBox {
     index;
     outputText;
+    formattedText; // is array of the lines.
     textLength;
     lineTotal;
     lineLength;
@@ -69,6 +70,17 @@ class TextBox {
                         ( typeOfBox == "option" ) ? 4 :
                         ( typeOfBox == "large" ) ? 3 : 2;
 
+        //Find the length of a text and adjusting the box to it. If longer than one line in a box 
+        //that accept more than one line, the linetotal is adjusted. Then the box is created accordingly,
+        //then the text is parsed correctly.
+        // option = 16 char max / one line
+        // small = 32 char max / one line
+        // medium = 36 char max / three lines
+        // large = 54 char max / two lines
+        // for medium and large, the last space before line cut must be found.
+
+
+
         this.lineTotal = ( typeOfBox == undefined ) ? 1 : 
                          ( typeOfBox == "small" ) ? 1 : 
                          ( typeOfBox == "option" ) ? 1 :
@@ -76,7 +88,10 @@ class TextBox {
 
         // Binary codes for each letter of the string
         this.charArray = [];
+
         for ( let k = 0; k < this.outputText.length; ++k ) {
+            //let the line separation happen here...
+
             for (let j = 0; j < charTable.length; ++j ) {
                 if (Object.keys(charTable[j]) == this.outputText.charAt(k)) {
                     this.charArray.push(Object.values(charTable[j]));
@@ -84,9 +99,7 @@ class TextBox {
                 }
             } 
         }
-
-
-        //Should be changed because that wont work with animations...
+        //Should be changed because that wont work with animations... UPDATE, now it works with animations... what gives?
         this.drawLetters(this.charArray)
     }
     drawBackground() {
@@ -123,7 +136,8 @@ class TextBox {
         //Draw characters
         textContext.fillStyle = getPaletteColor(this.letterColorCode);
         for(let c = 0; c < this.typeCursor; ++c ){
-
+            // the zero here should be pointing the the line array.
+            // if counter > array length => change line.
             var currentChar = letterArrays[c][0];
             //Adjust character height for small case g, j, p, q, y and comma ",".
             letterAdj = (   currentChar == "01110100011000101111000011000101110" || 
@@ -165,9 +179,6 @@ class TextBox {
             this.typeCursor = this.textLength;
             this.drawLetters(this.charArray);
         }
-
-        
         this.isTypeOver = (this.typeCursor == this.textLength) ? true : false;
-        //console.log(this.isTypeOver);
     }
 }

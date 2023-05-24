@@ -26,7 +26,7 @@ class Painter {
         this.xSize = canvasSizeX;
         this.ySize = canvasSizeY;
 
-        this.zoomCurrent = 4;
+        this.zoomCurrent = 6;
         this.zoomTarget = 1.14;
         this.zoomSpeed = 1
         this.zoomDelta = 0;
@@ -49,9 +49,10 @@ class Painter {
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
-        //floorContext.scale(this.zoomCurrent, this.zoomCurrent);
         floorContext.fillStyle = "rgba(0,255,0,1)";
         floorContext.fillRect(456, 345, 24 * (this.zoomCurrent) , 24 * (this.zoomCurrent));
+
+        floorContext.drawImage(floor_1, 456, 345, 32 * (this.zoomCurrent) , 24 * (this.zoomCurrent));
     }
     drawCenter() {
 
