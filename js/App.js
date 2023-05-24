@@ -109,8 +109,8 @@ textBoxStack.push(new TextBox("ThrEE line DiaLoG BoxXxXx ... -_- 36", "textLayer
 textBoxStack.push(new TextBox("Two (2) Lines DIALOGUE boXXxXX .................... 54", "textLayer", 12, 512, "large",13,45,false));
 
 const gamePainter = new Painter(gameWidth, gameHeight);
-const mazer = new Maze(80, 80, 600, 1);
-gamePainter.drawBackground(getPaletteColor(32));
+const mazer = new Maze(20, 20, 60, 1);
+gamePainter.drawBackground(getPaletteColor(0));
 
 const testPlayer = new Player(12, 384);
 const testPlayer1 = new Player(124, 384);

@@ -26,7 +26,7 @@ class Painter {
         this.xSize = canvasSizeX;
         this.ySize = canvasSizeY;
 
-        this.zoomCurrent = 6;
+        this.zoomCurrent = 4;
         this.zoomTarget = 1.14;
         this.zoomSpeed = 1
         this.zoomDelta = 0;
@@ -49,19 +49,29 @@ class Painter {
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
-        floorContext.fillStyle = "rgba(0,255,0,1)";
-        floorContext.fillRect(456, 345, 24 * (this.zoomCurrent) , 24 * (this.zoomCurrent));
+        
+        for ( let y = 0; y < 4; ++y ) {
+            for ( let x = 0; x < 4; ++x ) {
 
-        floorContext.drawImage(floor_1, 456, 345, 32 * (this.zoomCurrent) , 24 * (this.zoomCurrent));
+                let tileSizeX = 32 * (this.zoomCurrent);
+                let tileSizeY = 24 * (this.zoomCurrent);
+
+                floorContext.drawImage(floor_1, 100 + (x * tileSizeX ), 
+                                                100 + (y * tileSizeY), 
+                                                tileSizeX, 
+                                                tileSizeY);
+            }
+        }
+        
     }
     drawCenter() {
 
         const centerContext = document.getElementById("centerLayer").getContext("2d");
         centerContext.imageSmoothingEnabled = false;
         
-        //centerContext.scale(this.zoomCurrent, this.zoomCurrent);
-        centerContext.fillStyle = "rgba(255,255,0,1)";
-        centerContext.fillRect(234, 345, 24 * (this.zoomCurrent), 24 * (this.zoomCurrent));
+        // //centerContext.scale(this.zoomCurrent, this.zoomCurrent);
+        // centerContext.fillStyle = "rgba(255,255,0,1)";
+        // centerContext.fillRect(234, 345, 24 * (this.zoomCurrent), 24 * (this.zoomCurrent));
 
         for ( let object of this.centerStack ) {
             centerContext.drawImage(object.getFrame(),object.posX ,object.posY ,object.sizeX * (this.zoomCurrent), object.sizeY * (this.zoomCurrent));
@@ -74,7 +84,7 @@ class Painter {
 
         //frontContext.scale(this.zoomCurrent, this.zoomCurrent);
         frontContext.fillStyle = "rgba(255,0,255,1)";
-        frontContext.fillRect(345, 345,24 * (this.zoomCurrent), 24 * (this.zoomCurrent));
+        frontContext.fillRect(345, 345,12 * (this.zoomCurrent), 12 * (this.zoomCurrent));
     }
     drawUI() {
 

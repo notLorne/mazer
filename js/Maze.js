@@ -5,6 +5,7 @@ class Maze {
     totalStep;
     mazeGrid;
     totalKeys;
+    //startPoint;
     
     //Constructor
     constructor(sizeX, sizeY, stepTotal, keysTotal) {
@@ -42,7 +43,9 @@ class Maze {
         let nextLock = 3 * nextKey;
 
         //Starting point of maze => green.
+        //this.startPoint = { xStart, yStart };
         mazeGrid[xCurrent][yCurrent] = 2;
+        console.log(this.startPoint);
 
         console.log(xStart + " " + yStart);
 
@@ -124,7 +127,7 @@ class Maze {
         
         //console.log("maze")
         var tileMap = this.mazeGrid;
-        let tileSize = 4;
+        let tileSize = 8;
         var drawMaze = document.getElementById("frontLayer").getContext("2d");
         
         var xSize = tileMap.length;

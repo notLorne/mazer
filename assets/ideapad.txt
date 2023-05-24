@@ -1,0 +1,47 @@
+for each actors,
+create a mapX, mapY
+to know where they are in the map
+this is then calculated on the little map
+
+each mapSpace is 256, 192
+
+256 = zoomLevel(4) * 4 tiles * 32px
+192 = zoomLevel(4) * 4 tiles * 24px
+
+so a 20 x 20 = 128 * 20
+
+so if start = 10,9
+
+up,right corner => 320, 216
+
+no.
+
+at no zoom level to start, it is confusing.
+
+one mapSpace = 128px x 96px
+
+a 20 x 20 map =>
+
+2560 x 1920
+
+if start is at mapSpace (10,9);
+
+mapSpace =>
+
+x1 = 10 x 128 = 1280
+y1 = 9  x  96 =  864
+
+oh, how about we use another grid huh?
+but based on the current mapSpace.
+
+that grid would be like i dont know... 7 x 7 around player position
+or it could be dynamic. depending on zoom level.
+
+so if player is at 10, 9 :
+
+28 x 28 grid.
+so
+
+the loop would start at 10 +/- 3 and 9 +/- 3
+
+
