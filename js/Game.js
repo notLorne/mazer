@@ -1,7 +1,9 @@
 class Game {
 
+    scenesArray;
+
     constructor() {
-        
+
     }
 
 
