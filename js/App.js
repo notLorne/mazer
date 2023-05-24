@@ -3,7 +3,7 @@
 
 var lastFrame = Date.now();
 var timeDelta = -1;
-var framePerSecond = 30;
+var framePerSecond = 60;
 var toUpdate;
 var gameWidth = 1000;
 var gameHeight = 600;
@@ -49,7 +49,6 @@ function gameloop() {
         gamePainter.clearFront();
         gamePainter.clearUI();
         gamePainter.clearText();
-
         //zoomCamera();
         gamePainter.cameraZoom()
 
@@ -68,8 +67,14 @@ function gameloop() {
         
         //console.log(gamePainter.getCurrentZoomLevel())
     } else if (toUpdate) {
-        
         //update game
+
+        for( let object of gamePainter.centerStack ){
+            if ( object instanceof Actor) {
+                object.updateActor();
+            }
+
+        }
         toUpdate = false;
     } 
 
@@ -100,23 +105,17 @@ function menuloop() {
     window.requestAnimationFrame(menuloop);
 }
 
-textBoxStack.push(new TextBox("qweQWEqweQWEqw16", "textLayer", 12, 12, "option",4,21,true));
-textBoxStack.push(new TextBox("sasdASDASDasdASDasdASDASdASDAS32", "textLayer", 12, 72, "small",7,13,false));
-textBoxStack.push(new TextBox("jkhjhkjhkjhkjnjnkjnkuiukujhkuhkujh36", "textLayer", 12, 128, "medium",0,7,true));
-textBoxStack.push(new TextBox("asdasdsadasdasdasdasdsadasdagjhgjhgjghjghjghjhhjgjhg54", "textLayer", 12, 222, "large",13,45,false));
+textBoxStack.push(new TextBox("TITLE_title-_-16", "textLayer", 412, 12, "option",4,21,true));
+textBoxStack.push(new TextBox("one line box - one line box - 32", "textLayer", 412, 84, "small",7,13,false));
+textBoxStack.push(new TextBox("ThrEE line DiaLoG BoxXxXx ... -_- 36", "textLayer", 412, 156, "medium",0,7,true));
+textBoxStack.push(new TextBox("Two (2) Lines DIALOGUE boXXxXX .................... 54", "textLayer", 12, 512, "large",13,45,false));
 
 const gamePainter = new Painter(gameWidth, gameHeight);
 const mazer = new Maze(80, 80, 600, 1);
 gamePainter.drawBackground(getPaletteColor(32));
 
-//const animTest = new Animations(playerRunningBack);
-//Animation should be replaced with the object themselves so they dont have to be replaced everytime 
-//an actor state changes. Animations should only be used for static immobile animations.
-//So they will be both sharing some aparameters. Actors needs to be moved around. 
-const animTest2 = new Animations(playerRunningSide);
-
-//gamePainter.addToStack(1, animTest);
-gamePainter.addToStack(1, animTest2);
+const testPlayer = new Player(12, 384);
+const testPlayer1 = new Player(124, 384);
 
 
 window.requestAnimationFrame(gameloop);

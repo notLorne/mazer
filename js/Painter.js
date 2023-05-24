@@ -51,7 +51,7 @@ class Painter {
 
         //floorContext.scale(this.zoomCurrent, this.zoomCurrent);
         floorContext.fillStyle = "rgba(0,255,0,1)";
-        floorContext.fillRect(456, 123,123 * (this.zoomCurrent) , 123 * (this.zoomCurrent));
+        floorContext.fillRect(456, 345, 24 * (this.zoomCurrent) , 24 * (this.zoomCurrent));
     }
     drawCenter() {
 
@@ -60,12 +60,10 @@ class Painter {
         
         //centerContext.scale(this.zoomCurrent, this.zoomCurrent);
         centerContext.fillStyle = "rgba(255,255,0,1)";
-        centerContext.fillRect(234, 234,123 * (this.zoomCurrent), 234 * (this.zoomCurrent));
+        centerContext.fillRect(234, 345, 24 * (this.zoomCurrent), 24 * (this.zoomCurrent));
 
-        centerContext.drawImage(playerStillSide[0], 12,321,120,200);
-
-        for ( let anim of this.centerStack ) {
-            centerContext.drawImage(anim.getFrame(),272,321,anim.sizeX * (this.zoomCurrent), anim.sizeY * (this.zoomCurrent));
+        for ( let object of this.centerStack ) {
+            centerContext.drawImage(object.getFrame(),object.posX ,object.posY ,object.sizeX * (this.zoomCurrent), object.sizeY * (this.zoomCurrent));
         }
     }
     drawFront() {
@@ -75,7 +73,7 @@ class Painter {
 
         //frontContext.scale(this.zoomCurrent, this.zoomCurrent);
         frontContext.fillStyle = "rgba(255,0,255,1)";
-        frontContext.fillRect(345, 345,123 * (this.zoomCurrent), 234 * (this.zoomCurrent));
+        frontContext.fillRect(345, 345,24 * (this.zoomCurrent), 24 * (this.zoomCurrent));
     }
     drawUI() {
 

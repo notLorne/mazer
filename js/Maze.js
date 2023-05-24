@@ -122,7 +122,7 @@ class Maze {
 
     drawMaze() {
         
-        console.log("maze")
+        //console.log("maze")
         var tileMap = this.mazeGrid;
         let tileSize = 4;
         var drawMaze = document.getElementById("frontLayer").getContext("2d");

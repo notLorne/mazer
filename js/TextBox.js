@@ -69,6 +69,11 @@ class TextBox {
                         ( typeOfBox == "option" ) ? 4 :
                         ( typeOfBox == "large" ) ? 3 : 2;
 
+        this.lineTotal = ( typeOfBox == undefined ) ? 1 : 
+                         ( typeOfBox == "small" ) ? 1 : 
+                         ( typeOfBox == "option" ) ? 1 :
+                         ( typeOfBox == "large" ) ? 2 : 3;
+
         // Binary codes for each letter of the string
         this.charArray = [];
         for ( let k = 0; k < this.outputText.length; ++k ) {
@@ -92,17 +97,17 @@ class TextBox {
         //Draw textbox background
 
         textContext.fillStyle = getPaletteColor(this.textBoxColorCode);
-        textContext.fillRect(this.xPos - 8, 
+        textContext.fillRect(   this.xPos - 8, 
                                 this.yPos - 8, 
                                 (this.letterWidth + 1) * this.textSize * this.textLength + 16, 
-                                (this.letterHeight + 6) * this.textSize + 4)
+                                (this.letterHeight + 6) * this.textSize * this.lineTotal + 4)
         
         //Draw textbox outline
         textContext.strokeStyle = getPaletteColor(this.letterColorCode);
         textContext.strokeRect(this.xPos - 6, 
                             this.yPos - 6, 
                             (this.letterWidth + 1) * this.textSize * this.textLength + 12, 
-                            (this.letterHeight + 6) * this.textSize);
+                            (this.letterHeight + 6) * this.textSize * this.lineTotal);
 
        
     }

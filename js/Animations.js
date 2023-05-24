@@ -28,12 +28,10 @@ for ( let k = 0; k < 8; ++k ) {
 }
 
 class Animations {
-    static frameSkip;
 
-    static id;
+    static frameSkip;
     static sizeX;
     static sizeY;
-    static owner;
     static currentFrame;
     static currentAnimation;
     static maxFrame;
@@ -41,14 +39,13 @@ class Animations {
     static yPos;
     static zoomLevel;
 
-    constructor(animationName, ownerId) {
-        this.id = ownerId;
+    constructor(animationName) {
+
         this.currentFrame = 0;
         this.currentAnimation = animationName;
         this.maxFrame = this.currentAnimation.length - 1;
         this.sizeX = 12;
         this.sizeY = 20;
-        //console.log(this);
     }
 
     getFrame() {
@@ -60,9 +57,5 @@ class Animations {
             this.frameSkip = 0;
         }
         return this.currentAnimation[this.currentFrame]; 
-    }
-    setPosition(newX, newY) {
-        this.xPos = newX;
-        this.yPos = newY;
     }
 }

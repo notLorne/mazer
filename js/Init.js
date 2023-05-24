@@ -84,23 +84,18 @@ window.onload = (e) => {
             document.head.appendChild(script);
         }
         
-
-
         loadScript("js/alphaBin.js");
         loadScript("js/colorPalette.js");
 
         loadScript("js/Animations.js");
 
         loadScript("js/Maze.js");
-        loadScript("js/Actors.js");
+        loadScript("js/Actor.js");
         loadScript("js/Painter.js");
         loadScript("js/TextBox.js");
-        
+
         loadScript("js/App.js");
-
-
 
         isReady = true;
         console.log("Init loaded :" + isReady)
-
 }
