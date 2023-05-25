@@ -51,10 +51,13 @@ class Painter {
         let mapSpaceSizeX = 128; // CONST - width of a map space
         let mapSpaceSizeY = 96; // CONST - heigth of a map space
         let gridMultiplier = 4; // CONST - every map space is a 4x4 grid of 128px x 96px.
+
         let x = Math.floor(posX / mapSpaceSizeX);
         let y = Math.floor(posY / mapSpaceSizeY);
+
         let xCounterGrid = 0;
         let yCounterGrid = 0;
+
         for ( let xRead = x - 1; xRead <= x + 1; ++xRead ) {
             for ( let yRead = y - 1; yRead <= y + 1; ++yRead) {
 
@@ -77,7 +80,7 @@ class Painter {
         bgContext.fillStyle  = paletteColor;
         bgContext.fillRect(0, 0, this.xSize, this.ySize);
     }
-    drawFloor(currentGridSpace, nextGridSpace) {
+    drawFloor(colorCode, transparency, currentGridSpace, nextGridSpace) {
 
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
@@ -97,6 +100,13 @@ class Painter {
                                                     tileSizeX, 
                                                     tileSizeY);
                 }
+                if ( this.drawGrid[y][x] != 0) {
+                    floorContext.fillStyle = getPaletteColor(12, 0.25); //colorCode and transparency here/
+                    floorContext.fillRect(xDrawGridStart + (x * tileSizeX ), 
+                                            yDrawGridStart + (y * tileSizeY ), 
+                                            tileSizeX, 
+                                            tileSizeY);
+                }
             }
         }
     }
@@ -104,10 +114,6 @@ class Painter {
 
         const centerContext = document.getElementById("centerLayer").getContext("2d");
         centerContext.imageSmoothingEnabled = false;
-        
-        // //centerContext.scale(this.zoomCurrent, this.zoomCurrent);
-        // centerContext.fillStyle = "rgba(255,255,0,1)";
-        // centerContext.fillRect(234, 345, 24 * (this.zoomCurrent), 24 * (this.zoomCurrent));
 
         for ( let object of this.centerStack ) {
             centerContext.drawImage(object.getFrame(),object.posX ,object.posY ,object.sizeX * (this.zoomCurrent), object.sizeY * (this.zoomCurrent));
