@@ -44,7 +44,7 @@ class Painter {
 
     }
     updateDrawGrid(posX, posY, grid) { // OK for now, this should be called every time the position is changed,
-                                                    // not every time the game is updated.
+                                        // not every time the game is updated.
         this.xGridAbsPosition = 12
 
 
@@ -90,18 +90,22 @@ class Painter {
 
         let tileSizeX = 32 * (this.zoomCurrent);
         let tileSizeY = 24 * (this.zoomCurrent);
+        //start here with objects from stack
+        for ( floorTiles of this.floorStack ) {
 
+        }
         for ( let y = 0; y < this.drawGrid.length; ++y ) {
             for ( let x = 0; x < this.drawGrid[0].length; ++x ) {
 
                 if ( this.drawGrid[y][x] != 0) {
-                    floorContext.drawImage(floor_1, xDrawGridStart + (x * tileSizeX ), 
-                                                    yDrawGridStart + (y * tileSizeY ), 
+                    floorContext.drawImage(floor_2, xDrawGridStart + ( x * tileSizeX ), 
+                                                    yDrawGridStart + ( y * tileSizeY ), 
                                                     tileSizeX, 
                                                     tileSizeY);
                 }
+                //Floor color and opacity. The floor should be provided by the floorstack.
                 if ( this.drawGrid[y][x] != 0) {
-                    floorContext.fillStyle = getPaletteColor(12, 0.25); //colorCode and transparency here/
+                    floorContext.fillStyle = getPaletteColor(28, 0.5); //colorCode and transparency here/
                     floorContext.fillRect(xDrawGridStart + (x * tileSizeX ), 
                                             yDrawGridStart + (y * tileSizeY ), 
                                             tileSizeX, 

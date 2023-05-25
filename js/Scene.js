@@ -1,8 +1,13 @@
 class Scene {
     //Attributes
 
-    currentGridPos;
+    currentGridPos; // why
+
     collisionStack;
+    drawingGrid;
+    mapGrid;
+    currentSeed;
+
 
     constructor() {
         

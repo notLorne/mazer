@@ -15,9 +15,4 @@ class collisionZone{
         this.posX = newPosX;
         this.posY = newPosY;
     }
-
-    testCollision() {
-        
-    }
-
 }
