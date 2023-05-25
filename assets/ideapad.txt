@@ -18,7 +18,7 @@ no.
 
 at no zoom level to start, it is confusing.
 
-one mapSpace = 128px x 96px
+one mapSpace = (128px x 96px) * 4(for zoom) / 512, 
 
 a 20 x 20 map =>
 
@@ -44,4 +44,25 @@ so
 
 the loop would start at 10 +/- 3 and 9 +/- 3
 
+cab be a 3 x 3 grid. max zoom out will be 4.
+so it is like a (3x4) * (3x4) = 12 x 12
+3 x 3 is what is being seen.
+5 x 5 should be what is being considered.
 
+middle = 500, 300
+512 * 3 = 1536 / 2 = 768 - 512 = 256
+384 * 3 = 1152 / 2 = 576 - 384 = 192
+
+1 2 3
+4 5 6
+7 8 9
+
+1 = -256, -192
+2 = 256, -192
+3 = 768, -192
+4 = -256, 192
+5 = 256, 192
+6 = 768, 192
+7 = -256, 576
+8 = 256, 576
+9 = 768, 576

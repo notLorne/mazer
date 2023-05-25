@@ -1,4 +1,4 @@
-window.onload = (e) => {
+window.onload = () => {
     
     var gameWidth = 1000;
     var gameHeight = 600;

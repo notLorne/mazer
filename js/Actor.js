@@ -15,8 +15,9 @@ class Actor {
 
     constructor(xPos, yPos) {
 
-        this.posX = xPos;
-        this.posY = yPos;
+        this.posX = xPos * 128;
+        this.posY = yPos * 96;
+
         this.destinationX = this.posX;
         this.destinationY = this.posY;
         this.currentFrame = 0;
@@ -29,7 +30,7 @@ class Actor {
         //
     }
     updateActor() {
-        this.posX = ( this.posX < 1000 ) ? this.posX += 6 : -24 ;
+        //this.posX = ( this.posX < 1000 ) ? this.posX += 6 : -24 ;
 
     }
 
@@ -55,7 +56,7 @@ class Player extends Actor {
         this.id = 1; //CONST, player will always be 1. Or something else maybe?
         this.setState("idle");
         gamePainter.addToStack(1, this);
-
+        console.log(this.posX, this.posY);
     }
 
     setState(newState) {
@@ -68,7 +69,7 @@ class Player extends Actor {
                 this.frameSkip = 0;
                 this.destinationX = this.posX;
                 this.destinationY = this.posY;
-                this.currentAnimation = playerRunningSide;
+                this.currentAnimation = playerStillFront;
                 this.maxFrame = this.currentAnimation.length;
             }
             case "run" : {

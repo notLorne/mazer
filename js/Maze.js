@@ -5,6 +5,8 @@ class Maze {
     totalStep;
     mazeGrid;
     totalKeys;
+    xStart;
+    yStart;
     //startPoint;
     
     //Constructor
@@ -30,11 +32,11 @@ class Maze {
         var nextDirection = 0;
         let nextLength = 0;
 
-        var xStart = Math.floor((Math.random() * (this.xSize - 2)) + 2);
-        var yStart = Math.floor((Math.random() * (this.ySize - 2)) + 2);
+        this.xStart = Math.floor((Math.random() * (this.xSize - 2)) + 2);
+        this.yStart = Math.floor((Math.random() * (this.ySize - 2)) + 2);
 
-        var xCurrent = xStart;
-        var yCurrent = yStart;
+        var xCurrent = this.xStart;
+        var yCurrent = this.yStart;
 
         var stepCounter = 0;
 
@@ -43,11 +45,9 @@ class Maze {
         let nextLock = 3 * nextKey;
 
         //Starting point of maze => green.
-        //this.startPoint = { xStart, yStart };
         mazeGrid[xCurrent][yCurrent] = 2;
-        console.log(this.startPoint);
 
-        console.log(xStart + " " + yStart);
+        console.log(this.xStart + " " + this.yStart);
 
         while(stepCounter < this.totalStep) {
 
@@ -56,9 +56,9 @@ class Maze {
             //Set direction and length of the next line.
             if (nextAxis == 1) {
 
-                if (xCurrent < this.xSize / 12) {
+                if (xCurrent < 4) {
                     nextDirection = 1;
-                } else if (xCurrent > this.xSize - (this.xSize / 4)) {
+                } else if (xCurrent > this.xSize - 4) {
                     nextDirection = -1;
                 } else {
                     nextDirection = (Math.floor((Math.random() * 100)) < 50 ) ? 1 : -1;
@@ -89,9 +89,9 @@ class Maze {
             }
             if (nextAxis == 2) {
 
-                if (yCurrent < this.ySize / 12) {
+                if (yCurrent < 4) {
                     nextDirection = 1;
-                } else if (yCurrent > this.ySize - (this.ySize / 4)) {
+                } else if (yCurrent > this.ySize - 4) {
                     nextDirection = -1;
                 } else {
                     nextDirection = (Math.floor((Math.random() * 100)) < 50) ? 1 : -1;
@@ -123,11 +123,11 @@ class Maze {
         return mazeGrid;
     }
 
-    drawMaze() {
+    drawMaze() { //This is unusable in a game context. Too ressource intensive. Must be lightened or deleted altogether.
         
         //console.log("maze")
         var tileMap = this.mazeGrid;
-        let tileSize = 8;
+        let tileSize = 1;
         var drawMaze = document.getElementById("frontLayer").getContext("2d");
         
         var xSize = tileMap.length;

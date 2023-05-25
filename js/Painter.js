@@ -15,6 +15,10 @@ class Painter {
     xContextAdj;
     yContextAdj;
 
+    drawGrid;
+    xGridAbsPosition;
+    yGridAbsPosition;
+
 
     constructor(canvasSizeX, canvasSizeY) {
 
@@ -32,9 +36,38 @@ class Painter {
         this.zoomDelta = 0;
         this.xContextAdj = 0;
         this.yContextAdj = 0;
+
+        this.drawGrid = Array(12).fill().map(() => Array(12).fill(0));
+        console.log(this.drawGrid);
     }
     cameraZoom() {
 
+    }
+    updateDrawGrid(posX, posY, grid) { // OK for now, this should be called every time the position is changed,
+                                                    // not every time the game is updated.
+        this.xGridAbsPosition = 12
+
+
+        let mapSpaceSizeX = 128; // CONST - width of a map space
+        let mapSpaceSizeY = 96; // CONST - heigth of a map space
+        let gridMultiplier = 4; // CONST - every map space is a 4x4 grid of 128px x 96px.
+        let x = Math.floor(posX / mapSpaceSizeX);
+        let y = Math.floor(posY / mapSpaceSizeY);
+        let xCounterGrid = 0;
+        let yCounterGrid = 0;
+        for ( let xRead = x - 1; xRead <= x + 1; ++xRead ) {
+            for ( let yRead = y - 1; yRead <= y + 1; ++yRead) {
+
+                for ( let k = 0; k < gridMultiplier; ++k ) {
+                    for ( let j = 0; j < gridMultiplier; ++j ) {
+                        this.drawGrid[(yCounterGrid * gridMultiplier) + k][(xCounterGrid * gridMultiplier) + j] = grid[xRead][yRead];
+                    }
+                }      
+                yCounterGrid += 1;
+            }
+            yCounterGrid = 0;
+            xCounterGrid += 1;
+        }
     }
     drawBackground(paletteColor) {
 
@@ -44,25 +77,28 @@ class Painter {
         bgContext.fillStyle  = paletteColor;
         bgContext.fillRect(0, 0, this.xSize, this.ySize);
     }
-    drawFloor() {
+    drawFloor(currentGridSpace, nextGridSpace) {
 
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
-        
-        for ( let y = 0; y < 4; ++y ) {
-            for ( let x = 0; x < 4; ++x ) {
+        let xDrawGridStart = -256;
+        let yDrawGridStart = -276;
 
-                let tileSizeX = 32 * (this.zoomCurrent);
-                let tileSizeY = 24 * (this.zoomCurrent);
+        let tileSizeX = 32 * (this.zoomCurrent);
+        let tileSizeY = 24 * (this.zoomCurrent);
 
-                floorContext.drawImage(floor_1, 100 + (x * tileSizeX ), 
-                                                100 + (y * tileSizeY), 
-                                                tileSizeX, 
-                                                tileSizeY);
+        for ( let y = 0; y < this.drawGrid.length; ++y ) {
+            for ( let x = 0; x < this.drawGrid[0].length; ++x ) {
+
+                if ( this.drawGrid[y][x] != 0) {
+                    floorContext.drawImage(floor_1, xDrawGridStart + (x * tileSizeX ), 
+                                                    yDrawGridStart + (y * tileSizeY ), 
+                                                    tileSizeX, 
+                                                    tileSizeY);
+                }
             }
         }
-        
     }
     drawCenter() {
 
@@ -81,10 +117,9 @@ class Painter {
 
         const frontContext = document.getElementById("frontLayer").getContext("2d");
         frontContext.imageSmoothingEnabled = false;
-
         //frontContext.scale(this.zoomCurrent, this.zoomCurrent);
-        frontContext.fillStyle = "rgba(255,0,255,1)";
-        frontContext.fillRect(345, 345,12 * (this.zoomCurrent), 12 * (this.zoomCurrent));
+        // frontContext.fillStyle = "rgba(255,0,255,1)";
+        // frontContext.fillRect(345, 345,12 * (this.zoomCurrent), 12 * (this.zoomCurrent));
     }
     drawUI() {
 

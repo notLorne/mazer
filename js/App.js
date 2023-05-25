@@ -14,12 +14,17 @@ var zoomTarget;
 var currentZoom;
 var zoomSpeed;
 
+var xCursor = -1;
+var yCursor = -1;
+
 var textBoxStack = [];
 
 //Game Objects
 //Will adopt the same method as last time with at least two loops, gameplay and menu.
 //Game functions
+function actorsPosition(){
 
+}
 function zoomCamera() { // TO BE DELETED. IIT IS A TEST FUNCTION.
     if(gamePainter.zoomCurrent > 2) {
         gamePainter.zoomTarget = 0.4;
@@ -56,7 +61,7 @@ function gameloop() {
         gamePainter.drawCenter();
         gamePainter.drawFront();
         gamePainter.drawUI();
-        mazer.drawMaze()
+        //mazer.drawMaze() // This is very ressource consumming, cannot be used in game.
 
         //Reset timeDelta
         lastFrame = Date.now();
@@ -73,6 +78,7 @@ function gameloop() {
             }
 
         }
+        // gamePainter.updateDrawGrid(testPlayer.posX, testPlayer.posY, mazer.mazeGrid)
         toUpdate = false;
     } 
 
@@ -103,17 +109,17 @@ function menuloop() {
     window.requestAnimationFrame(menuloop);
 }
 
-textBoxStack.push(new TextBox("TITLE_title-_-16", "textLayer", 412, 12, "option",4,21,true));
-textBoxStack.push(new TextBox("one line box - one line box - 32", "textLayer", 412, 84, "small",7,13,false));
-textBoxStack.push(new TextBox("ThrEE line DiaLoG BoxXxXx ... -_- 36", "textLayer", 412, 156, "medium",0,7,true));
-textBoxStack.push(new TextBox("Two (2) Lines DIALOGUE boXXxXX .................... 54", "textLayer", 12, 512, "large",13,45,false));
+textBoxStack.push(new TextBox("TITLE_title-_-16", "textLayer", 412, 12, "option",4,21,false));
+// textBoxStack.push(new TextBox("one line box - one line box - 32", "textLayer", 412, 84, "small",7,13,false));
+// textBoxStack.push(new TextBox("ThrEE line DiaLoG BoxXxXx ... -_- 36", "textLayer", 412, 156, "medium",0,7,true));
+// textBoxStack.push(new TextBox("Two (2) Lines DIALOGUE boXXxXX .................... 54", "textLayer", 12, 512, "large",13,45,false));
 
 const gamePainter = new Painter(gameWidth, gameHeight);
-const mazer = new Maze(20, 20, 60, 1);
+const mazer = new Maze(120, 120, 800, 1);
 gamePainter.drawBackground(getPaletteColor(0));
 
-const testPlayer = new Player(12, 384);
-const testPlayer1 = new Player(124, 384);
-
-
+const testPlayer = new Player(mazer.xStart, mazer.yStart);
+console.log(testPlayer.posX + " " + testPlayer.posY)
+gamePainter.updateDrawGrid(testPlayer.posX, testPlayer.posY, mazer.mazeGrid);
+console.log(gamePainter.drawGrid)
 window.requestAnimationFrame(gameloop);
