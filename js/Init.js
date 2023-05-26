@@ -3,6 +3,7 @@ window.onload = () => {
     var gameWidth = 1000;
     var gameHeight = 600;
 
+
     //PreGame setup
     
         //CREATE A FUNCTION TO GET THE SCREEN RESOLUTION TO ADAPT THE GAME WINDOW SIZE. TEMPORARY VALUE HERE.
@@ -11,13 +12,14 @@ window.onload = () => {
     
     //Canvas creation.
         documentBody = document.body; //Declare and init here for now...
+        documentBody.style.margin = "0px";
         //Background
-        background = document.createElement('canvas');
+        const background = document.createElement('canvas');
         background.id = "background";
         background.style.position = "absolute";
         background.width = gameWidth;
         background.height = gameHeight;
-        background.style.border = "1px solid";
+        //background.style.border = "1px solid";
         background.style.zIndex = 0;
         documentBody.appendChild(background);
     
@@ -27,7 +29,7 @@ window.onload = () => {
         floorLayer.style.position = "absolute";
         floorLayer.width = gameWidth;
         floorLayer.height = gameHeight;
-        floorLayer.style.border = "1px solid";
+        //floorLayer.style.border = "1px solid";
         floorLayer.style.zIndex = 2;
         documentBody.appendChild(floorLayer);
     
@@ -37,7 +39,7 @@ window.onload = () => {
         centerLayer.style.position = "absolute";
         centerLayer.width = gameWidth;
         centerLayer.height = gameHeight;
-        centerLayer.style.border = "1px solid";
+        //centerLayer.style.border = "1px solid";
         centerLayer.style.zIndex = 4;
         documentBody.appendChild(centerLayer);
     
@@ -47,7 +49,7 @@ window.onload = () => {
         frontLayer.style.position = "absolute";
         frontLayer.width = gameWidth;
         frontLayer.height = gameHeight;
-        frontLayer.style.border = "1px solid";
+        //frontLayer.style.border = "1px solid";
         frontLayer.style.zIndex = 6;
         documentBody.appendChild(frontLayer);
     
@@ -57,7 +59,7 @@ window.onload = () => {
         uiLayer.style.position = "absolute";
         uiLayer.width = gameWidth;
         uiLayer.height = gameHeight;
-        uiLayer.style.border = "1px solid";
+        //uiLayer.style.border = "1px solid";
         uiLayer.style.zIndex = 8;
         documentBody.appendChild(uiLayer);
 
@@ -67,7 +69,7 @@ window.onload = () => {
         textLayer.style.position = "absolute";
         textLayer.width = gameWidth;
         textLayer.height = gameHeight;
-        textLayer.style.border = "1px solid";
+        //textLayer.style.border = "1px solid";
         textLayer.style.zIndex = 10;
         documentBody.appendChild(textLayer);
 
@@ -84,19 +86,25 @@ window.onload = () => {
             document.head.appendChild(script);
         }
         
+
+
         loadScript("js/alphaBin.js");
         loadScript("js/colorPalette.js");
         loadScript("js/textures.js");
         loadScript("js/animationAssets.js");
 
         loadScript("js/Animations.js");
+        loadScript("js/CollisionZone.js");
 
         loadScript("js/Maze.js");
         loadScript("js/Actor.js");
         loadScript("js/Painter.js");
         loadScript("js/TextBox.js");
 
+        loadScript("js/Scene.js");
         loadScript("js/App.js");
+
+        loadScript("js/Controller.js");
 
         isReady = true;
         console.log("Init loaded :" + isReady)

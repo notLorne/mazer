@@ -19,7 +19,6 @@ class Painter {
     xGridAbsPosition;
     yGridAbsPosition;
 
-
     constructor(canvasSizeX, canvasSizeY) {
 
         this.floorStack = new Array();
@@ -41,7 +40,6 @@ class Painter {
         console.log(this.drawGrid);
     }
     cameraZoom() {
-
     }
     updateDrawGrid(posX, posY, grid) { // OK for now, this should be called every time the position is changed,
                                         // not every time the game is updated.
@@ -126,7 +124,11 @@ class Painter {
     drawFront() {
 
         const frontContext = document.getElementById("frontLayer").getContext("2d");
-        frontContext.imageSmoothingEnabled = false;
+        for ( let object of this.frontStack ) {
+            //if ( object.state)
+            frontContext.fillStyle = "rgba(255,0,0,0.1)";
+            frontContext.fillRect(object.posX, object.posY, object.sizeX, object.sizeY );
+        }
         //frontContext.scale(this.zoomCurrent, this.zoomCurrent);
         // frontContext.fillStyle = "rgba(255,0,255,1)";
         // frontContext.fillRect(345, 345,12 * (this.zoomCurrent), 12 * (this.zoomCurrent));
