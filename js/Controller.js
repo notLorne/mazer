@@ -1,19 +1,14 @@
-const gameScreen = document.getElementById("background");
 
+//This thing doesnot feels very good somehow...
 
-console.log(background)
+window.addEventListener('click', (event) => {
+    if (event.x < gameWidth && event.y < gameHeight) {
 
-background.addEventListener('click', function(){ console.log("fgsd");}, false);
-console.log(gameScreen);
-
-// window.addEventListener('click', (event) => {
-//     console.log(event.x + " " + event.y);
-//     myScene.xCursor = event.x;
-//     myScene.yCursor = event.y;
-//     console.log(myScene.xCursor + " " + myScene.yCursor);
-//   })
-
-background.addEventListener('mouseover', (event) => {
-    console.log(event.x + " " + event.y);
+        myScene.xCursor = event.x;
+        myScene.yCursor = event.y;
+        //1st frame update
+        myScene.testCollision(myScene.xCursor, myScene.yCursor);
+        myScene.updateGridPosition();
+    }
 })
 console.log("from controller")

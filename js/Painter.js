@@ -30,7 +30,7 @@ class Painter {
         this.ySize = canvasSizeY;
 
         this.zoomCurrent = 4;
-        this.zoomTarget = 1.14;
+        this.zoomTarget = 0;
         this.zoomSpeed = 1
         this.zoomDelta = 0;
         this.xContextAdj = 0;
@@ -43,21 +43,13 @@ class Painter {
     }
     updateDrawGrid(posX, posY, grid) { // OK for now, this should be called every time the position is changed,
                                         // not every time the game is updated.
-        this.xGridAbsPosition = 12
-
-
-        let mapSpaceSizeX = 128; // CONST - width of a map space
-        let mapSpaceSizeY = 96; // CONST - heigth of a map space
         let gridMultiplier = 4; // CONST - every map space is a 4x4 grid of 128px x 96px.
-
-        let x = Math.floor(posX / mapSpaceSizeX);
-        let y = Math.floor(posY / mapSpaceSizeY);
 
         let xCounterGrid = 0;
         let yCounterGrid = 0;
 
-        for ( let xRead = x - 1; xRead <= x + 1; ++xRead ) {
-            for ( let yRead = y - 1; yRead <= y + 1; ++yRead) {
+        for ( let xRead = posX - 1; xRead <= posX + 1; ++xRead ) {
+            for ( let yRead = posY - 1; yRead <= posY + 1; ++yRead) {
 
                 for ( let k = 0; k < gridMultiplier; ++k ) {
                     for ( let j = 0; j < gridMultiplier; ++j ) {
@@ -96,14 +88,14 @@ class Painter {
             for ( let x = 0; x < this.drawGrid[0].length; ++x ) {
 
                 if ( this.drawGrid[y][x] != 0) {
-                    floorContext.drawImage(floor_2, xDrawGridStart + ( x * tileSizeX ), 
+                    floorContext.drawImage(floor_1, xDrawGridStart + ( x * tileSizeX ), 
                                                     yDrawGridStart + ( y * tileSizeY ), 
                                                     tileSizeX, 
                                                     tileSizeY);
                 }
                 //Floor color and opacity. The floor should be provided by the floorstack.
                 if ( this.drawGrid[y][x] != 0) {
-                    floorContext.fillStyle = getPaletteColor(28, 0.5); //colorCode and transparency here/
+                    floorContext.fillStyle = getPaletteColor(8, 0.5); //colorCode and transparency here/
                     floorContext.fillRect(xDrawGridStart + (x * tileSizeX ), 
                                             yDrawGridStart + (y * tileSizeY ), 
                                             tileSizeX, 
@@ -125,8 +117,12 @@ class Painter {
 
         const frontContext = document.getElementById("frontLayer").getContext("2d");
         for ( let object of this.frontStack ) {
-            //if ( object.state)
-            frontContext.fillStyle = "rgba(255,0,0,0.1)";
+            if ( object.state == "active") {
+                frontContext.fillStyle = "rgba(255,0,0,1)";
+            } else {
+                frontContext.fillStyle = "rgba(255,0,0,0.1)";
+            }
+            //frontContext.fillStyle = "rgba(255,0,0,0.1)";
             frontContext.fillRect(object.posX, object.posY, object.sizeX, object.sizeY );
         }
         //frontContext.scale(this.zoomCurrent, this.zoomCurrent);
@@ -134,10 +130,20 @@ class Painter {
         // frontContext.fillRect(345, 345,12 * (this.zoomCurrent), 12 * (this.zoomCurrent));
     }
     drawUI() {
-
+        //In the UI stack, everything is at a static position in the array. Since the same modules are 
+        //reused no matter what is happening. This way, The cursor slot can be modified all the time without 
+        //wondering about its ID and position in the array.
+        //UI stack component :
+        // 0 : cursor
         const uiContext = document.getElementById("uiLayer").getContext("2d");
         uiContext.imageSmoothingEnabled = false;
 
+        for ( let asset of this.uiStack ) {
+            uiContext.drawImage(cursor1, asset.xPos, 
+                                            asset.yPos, 
+                                            asset.xSize, 
+                                            asset.ySize);
+        }
         //draw image test. WORKING
     }
     clearBackground() {
@@ -166,15 +172,21 @@ class Painter {
     }
     addToStack(stackRef, object) {
         //Different values for stackRef => 0 = floorStack, 1 = centerStack, 2 = frontStack, 3 = uiStack, 4 = textAreaStack.
-
-            switch(stackRef) {
-                case 0: this.floorStack.push(object); break;
-                case 1: this.centerStack.push(object); break;
-                case 2: this.frontStack.push(object); break;
-                case 3: this.uiStack.push(object); break;
-            }
-        
-
+        switch(stackRef) {
+            case 0: this.floorStack.push(object); break;
+            case 1: this.centerStack.push(object); break;
+            case 2: this.frontStack.push(object); break;
+            case 3: this.uiStack.push(object); break;
+        }
+    }
+    flushStash(stackRef) {
+        //Different values for stackRef => 0 = floorStack, 1 = centerStack, 2 = frontStack, 3 = uiStack, 4 = textAreaStack.
+        switch(stackRef) {
+            case 0: this.floorStack = new Array(); break;
+            case 1: this.centerStack = new Array(); break;
+            case 2: this.frontStack = new Array(); break;
+            case 3: this.uiStack = new Array(); break;
+        }
     }
     colorFormatter(R, G, B, a) {
         return (a != undefined) ?   "rgba(" + R + "," + G + "," + B + "," + a + ")" : 

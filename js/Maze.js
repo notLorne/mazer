@@ -19,7 +19,7 @@ class Maze {
 
         this.mazeGrid = this.createMaze();
 
-        //this.drawMaze(this.mazeGrid);
+        this.drawMaze(this.mazeGrid);
     }
 
     //Methods
@@ -127,8 +127,8 @@ class Maze {
         
         //console.log("maze")
         var tileMap = this.mazeGrid;
-        let tileSize = 1;
-        var drawMaze = document.getElementById("frontLayer").getContext("2d");
+        let tileSize = 6;
+        var drawMaze = document.getElementById("centerLayer").getContext("2d");
         
         var xSize = tileMap.length;
         var ySize = tileMap[0].length;

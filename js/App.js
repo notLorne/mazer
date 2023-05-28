@@ -16,6 +16,8 @@ var zoomSpeed;
 
 var xCursor = -1;
 var yCursor = -1;
+const xGridOrigin = -256;
+const yGridOrigin = -276;
 
 var textBoxStack = [];
 
@@ -65,6 +67,7 @@ function gameloop() {
         gamePainter.drawCenter();
         gamePainter.drawFront();
         gamePainter.drawUI();
+        myScene.mapGrid.drawMaze();
         //mazer.drawMaze() // This is very ressource consumming, cannot be used in game.
 
         //Reset timeDelta
@@ -113,7 +116,7 @@ function menuloop() {
     window.requestAnimationFrame(menuloop);
 }
 
-// textBoxStack.push(new TextBox("TITLE_title-_-16", "textLayer", 412, 12, "option",4,21,false));
+textBoxStack.push(new TextBox("Maze Test 1", "textLayer", 688, 12, "option",4,21,false));
 // // textBoxStack.push(new TextBox("one line box - one line box - 32", "textLayer", 412, 84, "small",7,13,false));
 // // textBoxStack.push(new TextBox("ThrEE line DiaLoG BoxXxXx ... -_- 36", "textLayer", 412, 156, "medium",0,7,true));
 // // textBoxStack.push(new TextBox("Two (2) Lines DIALOGUE boXXxXX .................... 54", "textLayer", 12, 512, "large",13,45,false));

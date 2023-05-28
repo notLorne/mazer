@@ -1,5 +1,8 @@
 //Player animations.
 
+const cursor1 = new Array();
+cursor1[0] = new Image(); cursor1[0].src =  "assets/ui/cursor1.png";
+
 const playerStillFront = new Array();
 playerStillFront[0] = new Image(); playerStillFront[0].src = "assets/actors/player/playerStillFront_0.png";
 
