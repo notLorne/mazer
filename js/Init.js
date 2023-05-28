@@ -95,6 +95,7 @@ window.onload = () => {
 
         loadScript("js/Animations.js");
         loadScript("js/CollisionZone.js");
+        loadScript("js/UiObject.js");
 
         loadScript("js/Maze.js");
         loadScript("js/Actor.js");
@@ -102,10 +103,10 @@ window.onload = () => {
         loadScript("js/TextBox.js");
 
         loadScript("js/Scene.js");
-        loadScript("js/App.js");
+
 
         loadScript("js/Controller.js");
-
+        loadScript("js/App.js");
         isReady = true;
         console.log("Init loaded :" + isReady)
 }

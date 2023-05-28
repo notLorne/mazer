@@ -6,6 +6,7 @@ window.addEventListener('click', (event) => {
 
         myScene.xCursor = event.x;
         myScene.yCursor = event.y;
+        myScene.setCursor(event.x, event.y);
         //1st frame update
         myScene.testCollision(myScene.xCursor, myScene.yCursor);
         myScene.updateGridPosition();

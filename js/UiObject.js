@@ -1,18 +1,43 @@
 class UiObject {
+
     state;
     xPos;
     yPos;
     xSize;
     ySize;
+    xOffset;
+    yOffset;
 
+    objectType;
+    frameSkip;
+    currentAnimation;
+    currentFrame;
+    maxFrame;
 
     constructor(typeOfObject) {
 
-        this.state = "idle";
-        this.xPos = 500;
-        this.yPos = 300;
-        this.xSize = 12;
-        this.ySize = 8;
+        this.objectType = typeOfObject;
+        this.currentFrame = 0;
+        this.frameSkip = 0;
+
+        switch (typeOfObject) {
+            case "cursor" : {
+
+                this.state = "idle";
+                this.currentAnimation = cursor1;
+                this.maxFrame = this.currentAnimation.length;
+
+                this.xPos = 500;
+                this.yPos = 300;
+                this.xSize = 12;
+                this.ySize = 8;
+                this.xOffset = this.xSize / 2;
+                this.yOffset = this.ySize / 2;
+
+                gamePainter.uiStack[0] = this;
+            }
+        }
+
     }
 
     getFrame() { //Get seen from the  painter point of view.
@@ -33,6 +58,8 @@ class Cursor extends UiObject {
     
     constructor() {
 
-        super(this.xPos) = 2;
+        super("cursor");
+
+        console.log(this);
     }
 }

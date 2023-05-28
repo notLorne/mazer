@@ -25,8 +25,8 @@ class Scene {
 
     constructor() {
 
-        this.sceneCursor = new Cursor()
-
+        this.sceneCursor = new Cursor();
+        
         this.xCursor = 0;
         this.yCursor = 0;
 
@@ -49,23 +49,10 @@ class Scene {
     updateGridPosition() {
 
         switch(this.selectedGridId) {
-            case 0 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos - 1][this.yGridPos - 1] != 0) {
-                    this.xGridPos -= 1;
-                    this.yGridPos -= 1;
-                }
-                break;
-            }
+
             case 1 : {
                 if (this.mapGrid.mazeGrid[this.xGridPos - 1][this.yGridPos] != 0) {
                     this.xGridPos -= 1;
-                }
-                break;
-            }
-            case 2 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos - 1][this.yGridPos + 1] != 0) {
-                    this.xGridPos -= 1;
-                    this.yGridPos += 1;
                 }
                 break;
             }
@@ -75,23 +62,9 @@ class Scene {
                 }
                 break;
             }
-            case 8 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos + 1][this.yGridPos + 1] != 0) {
-                    this.xGridPos += 1;
-                    this.yGridPos += 1;
-                }
-                break;
-            }
             case 7 : {
                 if (this.mapGrid.mazeGrid[this.xGridPos + 1][this.yGridPos] != 0) {
                     this.xGridPos += 1;
-                }
-                break;
-            }
-            case 6 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos + 1][this.yGridPos - 1] != 0) {
-                    this.xGridPos += 1;
-                    this.yGridPos -= 1;
                 }
                 break;
             }
@@ -103,8 +76,7 @@ class Scene {
             }
         }
 
-        console.log(this.mapGrid.mazeGrid[1][1]);
-        
+        //Reset floor collision zones.
         this.collisionStack = new Array();
         for ( let k = 0; k < 3; ++k ) {
             for ( let j = 0; j < 3; ++j ) {
@@ -116,7 +88,6 @@ class Scene {
                                                                     this.yCollisionGrid + (j * 384));
             }
         }
-        console.log(this.xGridPos + " " + this.yGridPos);
         gamePainter.updateDrawGrid(this.xGridPos, this.yGridPos, this.mapGrid.mazeGrid)
     }
 
@@ -133,13 +104,14 @@ class Scene {
                             y < zone.posY + zone.sizeY ) ? zone.id : activeTile;
             
         }
-        console.log(activeTile + " x:" + this.xCursor + " y:" + this.yCursor );
         this.selectedGridId = activeTile;
+        return ( activeTile >= 0 ) ? activeTile : -1;
     }
 
     setCursor(xNewCursor, yNewCursor) {
 
-        gamePainter.addToStack(3,)
+        this.sceneCursor.xPos = xNewCursor;
+        this.sceneCursor.yPos = yNewCursor;
 
     }
     //Getters & setters

@@ -95,7 +95,7 @@ class Painter {
                 }
                 //Floor color and opacity. The floor should be provided by the floorstack.
                 if ( this.drawGrid[y][x] != 0) {
-                    floorContext.fillStyle = getPaletteColor(8, 0.5); //colorCode and transparency here/
+                    floorContext.fillStyle = getPaletteColor(14, 0.25); //colorCode and transparency here/
                     floorContext.fillRect(xDrawGridStart + (x * tileSizeX ), 
                                             yDrawGridStart + (y * tileSizeY ), 
                                             tileSizeX, 
@@ -139,10 +139,10 @@ class Painter {
         uiContext.imageSmoothingEnabled = false;
 
         for ( let asset of this.uiStack ) {
-            uiContext.drawImage(cursor1, asset.xPos, 
-                                            asset.yPos, 
-                                            asset.xSize, 
-                                            asset.ySize);
+            uiContext.drawImage(asset.getFrame(), asset.xPos - (asset.xOffset * this.zoomCurrent), 
+                                                asset.yPos - (asset.yOffset * this.zoomCurrent), 
+                                                asset.xSize * this.zoomCurrent, 
+                                                asset.ySize * this.zoomCurrent);
         }
         //draw image test. WORKING
     }
