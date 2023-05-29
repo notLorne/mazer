@@ -56,9 +56,15 @@ class UiObject {
 
 class Cursor extends UiObject {
     
+    xCursorTarget;
+    yCursorTarget;
+
     constructor() {
 
         super("cursor");
+        
+        this.xCursorTarget = this.xPos;
+        this.yCursorTarget = this.yPos;
 
         console.log(this);
     }

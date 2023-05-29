@@ -127,7 +127,7 @@ class Maze {
         
         //console.log("maze")
         var tileMap = this.mazeGrid;
-        let tileSize = 6;
+        let tileSize = 3;
         var drawMaze = document.getElementById("centerLayer").getContext("2d");
         
         var xSize = tileMap.length;

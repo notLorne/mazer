@@ -3,8 +3,10 @@ class Scene {
     sceneId;
 
     sceneCursor;
-    xCursor;
+
+    xCursor;//TO DELETE, replace by cursor OBEJCT
     yCursor;
+
 
     xGridPos; //position on the mapGrid x and y
     yGridPos; //this one starts one the green dot for now.
@@ -40,16 +42,14 @@ class Scene {
         console.log(this.xGridPos + " " + this.yGridPos);
         
         this.xCollisionGrid = xGridOrigin; // CONST from app.js
-        this.yCollisionGrid = yGridOrigin; // They are moved so that the cursor is always in the middle of the street.
+        this.yCollisionGrid = yGridOrigin; // They are moved so that the cursor is always in the middle of the screen.
 
         this.updateGridPosition();
     }
-
     //Methods
-    updateGridPosition() {
+    testNextGridSpace() {
 
         switch(this.selectedGridId) {
-
             case 1 : {
                 if (this.mapGrid.mazeGrid[this.xGridPos - 1][this.yGridPos] != 0) {
                     this.xGridPos -= 1;
@@ -75,9 +75,12 @@ class Scene {
                 break;
             }
         }
-
+    }
+    updateGridPosition() {
+        
         //Reset floor collision zones.
         this.collisionStack = new Array();
+        //Create new collision zones.
         for ( let k = 0; k < 3; ++k ) {
             for ( let j = 0; j < 3; ++j ) {
                 this.collisionStack[(k * 3) + j] = new CollisionZone((k * 3) + j, 
@@ -90,14 +93,14 @@ class Scene {
         }
         gamePainter.updateDrawGrid(this.xGridPos, this.yGridPos, this.mapGrid.mazeGrid)
     }
-
     testCollision(x, y) {
+
         let activeTile = -1;
         for ( let zone of this.collisionStack ) {
-            zone.state = ( x > zone.posX &&
-                            x < zone.posX + zone.sizeX &&
-                            y > zone.posY &&
-                            y < zone.posY + zone.sizeY ) ? "active" : "idle";
+            // zone.state = ( x > zone.posX &&
+            //                 x < zone.posX + zone.sizeX &&
+            //                 y > zone.posY &&
+            //                 y < zone.posY + zone.sizeY ) ? "active" : "idle";
             activeTile = ( x > zone.posX &&
                             x < zone.posX + zone.sizeX &&
                             y > zone.posY &&
@@ -107,12 +110,12 @@ class Scene {
         this.selectedGridId = activeTile;
         return ( activeTile >= 0 ) ? activeTile : -1;
     }
-
     setCursor(xNewCursor, yNewCursor) {
 
         this.sceneCursor.xPos = xNewCursor;
         this.sceneCursor.yPos = yNewCursor;
-
+        this.sceneCursor.xPos = xNewCursor;
+        this.sceneCursor.yPos = yNewCursor;
     }
     //Getters & setters
 

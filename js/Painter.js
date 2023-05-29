@@ -41,8 +41,12 @@ class Painter {
     }
     cameraZoom() {
     }
+    updateDrawGridPosition() {
+        
+    }
     updateDrawGrid(posX, posY, grid) { // OK for now, this should be called every time the position is changed,
                                         // not every time the game is updated.
+                                        //THIS IS FOR LOGICAL COMPONENTS, does not draw or need acutal position.
         let gridMultiplier = 4; // CONST - every map space is a 4x4 grid of 128px x 96px.
 
         let xCounterGrid = 0;
@@ -53,7 +57,8 @@ class Painter {
 
                 for ( let k = 0; k < gridMultiplier; ++k ) {
                     for ( let j = 0; j < gridMultiplier; ++j ) {
-                        this.drawGrid[(yCounterGrid * gridMultiplier) + k][(xCounterGrid * gridMultiplier) + j] = grid[xRead][yRead];
+                        this.drawGrid[(yCounterGrid * gridMultiplier) + k][(xCounterGrid * gridMultiplier) + j] = 
+                                                                                                grid[xRead][yRead];
                     }
                 }      
                 yCounterGrid += 1;
@@ -70,13 +75,13 @@ class Painter {
         bgContext.fillStyle  = paletteColor;
         bgContext.fillRect(0, 0, this.xSize, this.ySize);
     }
-    drawFloor(colorCode, transparency, currentGridSpace, nextGridSpace) {
+    drawFloor(xOffsetGrid, yOffsetGrid) { // Maybe using the real coordinates would be easier and faster.
 
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
-        let xDrawGridStart = -256;
-        let yDrawGridStart = -276;
+        let xDrawGridStart = -256 + xOffsetGrid;
+        let yDrawGridStart = -276 + yOffsetGrid;
 
         let tileSizeX = 32 * (this.zoomCurrent);
         let tileSizeY = 24 * (this.zoomCurrent);
@@ -95,7 +100,7 @@ class Painter {
                 }
                 //Floor color and opacity. The floor should be provided by the floorstack.
                 if ( this.drawGrid[y][x] != 0) {
-                    floorContext.fillStyle = getPaletteColor(14, 0.25); //colorCode and transparency here/
+                    floorContext.fillStyle = getPaletteColor(42, 0.45); //colorCode and transparency here/
                     floorContext.fillRect(xDrawGridStart + (x * tileSizeX ), 
                                             yDrawGridStart + (y * tileSizeY ), 
                                             tileSizeX, 

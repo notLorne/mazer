@@ -22,11 +22,8 @@ const yGridOrigin = -276;
 var textBoxStack = [];
 
 //Game Objects
-
-
-
-
 //Will adopt the same method as last time with at least two loops, gameplay and menu.
+
 //Game functions
 function actorsPosition(){
 
@@ -83,7 +80,6 @@ function gameloop() {
             if ( object instanceof Actor) {
                 object.updateActor();
             }
-
         }
         // gamePainter.updateDrawGrid(testPlayer.posX, testPlayer.posY, mazer.mazeGrid)
         toUpdate = false;
@@ -120,8 +116,6 @@ textBoxStack.push(new TextBox("Maze Test 1", "textLayer", 688, 12, "option",4,21
 // // textBoxStack.push(new TextBox("one line box - one line box - 32", "textLayer", 412, 84, "small",7,13,false));
 // // textBoxStack.push(new TextBox("ThrEE line DiaLoG BoxXxXx ... -_- 36", "textLayer", 412, 156, "medium",0,7,true));
 // // textBoxStack.push(new TextBox("Two (2) Lines DIALOGUE boXXxXX .................... 54", "textLayer", 12, 512, "large",13,45,false));
-
-
 
 const gamePainter = new Painter(gameWidth, gameHeight);
 gamePainter.drawBackground(getPaletteColor(0));
