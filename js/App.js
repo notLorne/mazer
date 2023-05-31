@@ -68,7 +68,7 @@ function gameloop() {
         gamePainter.drawFront();
         gamePainter.drawUI();
 
-        myScene.mapGrid.drawMaze();
+        //myScene.mapGrid.drawMaze();
         //mazer.drawMaze() // This is very ressource consumming, cannot be used in game.
 
         //Reset timeDelta

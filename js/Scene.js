@@ -3,6 +3,8 @@ class Scene {
     sceneId;
 
     sceneCursor;
+    xTarget;
+    yTarget;
     xDeltaPos;
     yDeltaPos;
 
@@ -49,19 +51,23 @@ class Scene {
     }
     //Methods
     getPositionDelta() {
+
         this.xDeltaPos = this.sceneCursor.xPos -500;
+        this.xTarget = this.xDeltaPos;
         this.yDeltaPos = this.sceneCursor.yPos -300;
+        this.yTarget = this.yDeltaPos;
+
         console.log(this.xDeltaPos + " " + this.yDeltaPos);
     }
     moveGrid() {
         this.xCollisionGrid += (this.xDeltaPos < 0) ? 1 : -1;
         this.yCollisionGrid += (this.yDeltaPos < 0) ? 1 : -1;
-        this.xDeltaPos += (this.xDeltaPos < 0) ?  1 : -1;
-        this.yDeltaPos += (this.yDeltaPos < 0) ?  1 : -1;
-        if (Math.abs(this.xDeltaPos) < 2 ) {
+        this.xDeltaPos += (this.xDeltaPos < 0) ?  4 : -4;
+        this.yDeltaPos += (this.yDeltaPos < 0) ?  4 : -4;
+        if (Math.abs(this.xDeltaPos) < 6 ) {
             this.xDeltaPos = 0;
         }
-        if (Math.abs(this.yDeltaPos) < 2 ) {
+        if (Math.abs(this.yDeltaPos) < 6 ) {
             this.yDeltaPos = 0;
         }
         console.log(this.xDeltaPos + " " + this.yDeltaPos);
@@ -95,7 +101,7 @@ class Scene {
             }
         }
     }
-    updateGridPosition() { //this only happens when a new grid needed, not right after click...
+    updateGridPosition() { //this only happens when a new grid needed, not right after click... its also just the logical grid
         
         //Reset floor collision zones.
         this.collisionStack = new Array();

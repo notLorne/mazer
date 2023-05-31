@@ -80,8 +80,11 @@ class Painter {
         const floorContext = document.getElementById("floorLayer").getContext("2d");
         floorContext.imageSmoothingEnabled = false;
 
-        let xDrawGridStart = -256;
-        let yDrawGridStart = -276;
+        xOffsetGrid = myScene.xTarget - myScene.xDeltaPos;
+        yOffsetGrid = myScene.yTarget - myScene.yDeltaPos;
+
+        let xDrawGridStart = -256 - xOffsetGrid;
+        let yDrawGridStart = -276 - yOffsetGrid;
 
         let tileSizeX = 32 * (this.zoomCurrent);
         let tileSizeY = 24 * (this.zoomCurrent);
