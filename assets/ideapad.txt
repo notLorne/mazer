@@ -77,3 +77,9 @@ on y it would be -384 + -12 of buffer = -396.
 
 when limit is reached, gridpositionX and Y are 
 then changed. the grid is redrawn.
+
+so, right now, we need to change the grid position.
+ex:
+(4) = center zone.
+4 x745 : y:467
+so for x = -256(origion) + 

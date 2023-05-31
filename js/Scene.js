@@ -3,10 +3,11 @@ class Scene {
     sceneId;
 
     sceneCursor;
+    xDeltaPos;
+    yDeltaPos;
 
     xCursor;//TO DELETE, replace by cursor OBEJCT
     yCursor;
-
 
     xGridPos; //position on the mapGrid x and y
     yGridPos; //this one starts one the green dot for now.
@@ -47,6 +48,24 @@ class Scene {
         this.updateGridPosition();
     }
     //Methods
+    getPositionDelta() {
+        this.xDeltaPos = this.sceneCursor.xPos -500;
+        this.yDeltaPos = this.sceneCursor.yPos -300;
+        console.log(this.xDeltaPos + " " + this.yDeltaPos);
+    }
+    moveGrid() {
+        this.xCollisionGrid += (this.xDeltaPos < 0) ? 1 : -1;
+        this.yCollisionGrid += (this.yDeltaPos < 0) ? 1 : -1;
+        this.xDeltaPos += (this.xDeltaPos < 0) ?  1 : -1;
+        this.yDeltaPos += (this.yDeltaPos < 0) ?  1 : -1;
+        if (Math.abs(this.xDeltaPos) < 2 ) {
+            this.xDeltaPos = 0;
+        }
+        if (Math.abs(this.yDeltaPos) < 2 ) {
+            this.yDeltaPos = 0;
+        }
+        console.log(this.xDeltaPos + " " + this.yDeltaPos);
+    }
     testNextGridSpace() {
 
         switch(this.selectedGridId) {
@@ -76,7 +95,7 @@ class Scene {
             }
         }
     }
-    updateGridPosition() {
+    updateGridPosition() { //this only happens when a new grid needed, not right after click...
         
         //Reset floor collision zones.
         this.collisionStack = new Array();
@@ -112,8 +131,6 @@ class Scene {
     }
     setCursor(xNewCursor, yNewCursor) {
 
-        this.sceneCursor.xPos = xNewCursor;
-        this.sceneCursor.yPos = yNewCursor;
         this.sceneCursor.xPos = xNewCursor;
         this.sceneCursor.yPos = yNewCursor;
     }

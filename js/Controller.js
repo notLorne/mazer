@@ -11,7 +11,8 @@ window.addEventListener('click', (event) => {
         //1st frame update
         myScene.testCollision(myScene.xCursor, myScene.yCursor);
         myScene.testNextGridSpace();
-        myScene.updateGridPosition();
+        myScene.getPositionDelta();
+        
+        //myScene.updateGridPosition();
     }
 })
-console.log("from controller")

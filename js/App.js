@@ -60,10 +60,14 @@ function gameloop() {
 
         //draw
         textDisplay();
-        gamePainter.drawFloor();
+ 
+        myScene.moveGrid();
+        gamePainter.drawFloor(myScene.xDeltaPos, myScene.yDeltaPos);
+
         gamePainter.drawCenter();
         gamePainter.drawFront();
         gamePainter.drawUI();
+
         myScene.mapGrid.drawMaze();
         //mazer.drawMaze() // This is very ressource consumming, cannot be used in game.
 
