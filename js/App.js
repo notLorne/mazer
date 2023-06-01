@@ -61,9 +61,10 @@ function gameloop() {
         //draw
         textDisplay();
  
-        myScene.moveGrid();
-        gamePainter.drawFloor(myScene.xDeltaPos, myScene.yDeltaPos);
+        myScene.moveGrid(); //Logical grid
+        gamePainter.updateDrawGridPosition(); //Graphical grid
 
+        gamePainter.drawFloor(myScene.xDeltaPos, myScene.yDeltaPos);
         gamePainter.drawCenter();
         gamePainter.drawFront();
         gamePainter.drawUI();

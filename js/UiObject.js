@@ -15,7 +15,8 @@ class UiObject {
     maxFrame;
 
     constructor(typeOfObject) {
-
+        //Every object get a predefined slot in the gamePainter.uiStack
+        // 0 = cursor
         this.objectType = typeOfObject;
         this.currentFrame = 0;
         this.frameSkip = 0;
@@ -37,7 +38,6 @@ class UiObject {
                 gamePainter.uiStack[0] = this;
             }
         }
-
     }
 
     getFrame() { //Get seen from the  painter point of view.
@@ -51,7 +51,6 @@ class UiObject {
         }
         return this.currentAnimation[this.currentFrame]; 
     }
-
 }
 
 class Cursor extends UiObject {
@@ -65,5 +64,10 @@ class Cursor extends UiObject {
         
         this.xCursorTarget = this.xPos;
         this.yCursorTarget = this.yPos;
+    }
+    setCursor(xNewCursor, yNewCursor) {
+
+        this.xPos = myScene.xCollisionGrid + xNewCursor;
+        this.yPos = myScene.yCollisionGrid + yNewCursor;
     }
 }

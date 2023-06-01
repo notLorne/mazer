@@ -86,8 +86,12 @@ class Painter {
         let xDrawGridStart = -256 - xOffsetGrid;
         let yDrawGridStart = -276 - yOffsetGrid;
 
+        //console.log(xDrawGridStart);
+        //console.log(yDrawGridStart);
+
         let tileSizeX = 32 * (this.zoomCurrent);
         let tileSizeY = 24 * (this.zoomCurrent);
+
         //start here with objects from stack
         for ( floorTiles of this.floorStack ) {
 
@@ -104,8 +108,8 @@ class Painter {
                 //Floor color and opacity. The floor should be provided by the floorstack.
                 if ( this.drawGrid[y][x] != 0) {
                     floorContext.fillStyle = getPaletteColor(42, 0.45); //colorCode and transparency here/
-                    floorContext.fillRect(xDrawGridStart + (x * tileSizeX ), 
-                                            yDrawGridStart + (y * tileSizeY ), 
+                    floorContext.fillRect(xDrawGridStart + (x * tileSizeX), 
+                                            yDrawGridStart + (y * tileSizeY), 
                                             tileSizeX, 
                                             tileSizeY);
                 }

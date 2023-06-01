@@ -3,19 +3,16 @@ class Scene {
     sceneId;
 
     sceneCursor;
+    xCenter;
+    yCenter;
     xTarget;
     yTarget;
     xDeltaPos;
     yDeltaPos;
 
-    xCursor;//TO DELETE, replace by cursor OBEJCT
-    yCursor;
-
     xGridPos; //position on the mapGrid x and y
     yGridPos; //this one starts one the green dot for now.
     selectedGridId; //This is the id of the next section that was clicked on. define in which direction map goes.
-    // xCurrentGridCenter;
-    // yCurrentGridCenter;
 
     collisionStack;
     drawingGrid;
@@ -30,19 +27,20 @@ class Scene {
 
     constructor() {
 
+        this.xCenter = gameWidth / 2; //const
+        this.yCenter = gameHeight / 2; //const
+
+        console.log(this.xCenter + " " + this.yCenter); 
         this.sceneCursor = new Cursor();
-        
-        this.xCursor = 0;
-        this.yCursor = 0;
 
         this.collisionStack = new Array();
 
         this.mapGrid = new Maze(50, 50, 500, 1);
-        console.log(this.mapGrid.xStart + " " + this.mapGrid.yStart);
+        //console.log(this.mapGrid.xStart + " " + this.mapGrid.yStart);
 
         this.xGridPos = this.mapGrid.xStart;
         this.yGridPos = this.mapGrid.yStart;
-        console.log(this.xGridPos + " " + this.yGridPos);
+        //console.log(this.xGridPos + " " + this.yGridPos);
         
         this.xCollisionGrid = xGridOrigin; // CONST from app.js
         this.yCollisionGrid = yGridOrigin; // They are moved so that the cursor is always in the middle of the screen.
@@ -54,53 +52,56 @@ class Scene {
 
         this.xDeltaPos = this.sceneCursor.xPos -500;
         this.xTarget = this.xDeltaPos;
+
         this.yDeltaPos = this.sceneCursor.yPos -300;
         this.yTarget = this.yDeltaPos;
 
         console.log(this.xDeltaPos + " " + this.yDeltaPos);
     }
     moveGrid() {
+
         this.xCollisionGrid += (this.xDeltaPos < 0) ? 1 : -1;
         this.yCollisionGrid += (this.yDeltaPos < 0) ? 1 : -1;
         this.xDeltaPos += (this.xDeltaPos < 0) ?  4 : -4;
         this.yDeltaPos += (this.yDeltaPos < 0) ?  4 : -4;
+
         if (Math.abs(this.xDeltaPos) < 6 ) {
             this.xDeltaPos = 0;
         }
         if (Math.abs(this.yDeltaPos) < 6 ) {
             this.yDeltaPos = 0;
         }
-        console.log(this.xDeltaPos + " " + this.yDeltaPos);
+        //console.log(this.xDeltaPos + " " + this.yDeltaPos);
     }
-    testNextGridSpace() {
+    // testNextGridSpace() {
 
-        switch(this.selectedGridId) {
-            case 1 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos - 1][this.yGridPos] != 0) {
-                    this.xGridPos -= 1;
-                }
-                break;
-            }
-            case 5 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos][this.yGridPos + 1] != 0) {
-                    this.yGridPos += 1;
-                }
-                break;
-            }
-            case 7 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos + 1][this.yGridPos] != 0) {
-                    this.xGridPos += 1;
-                }
-                break;
-            }
-            case 3 : {
-                if (this.mapGrid.mazeGrid[this.xGridPos][this.yGridPos - 1] != 0) {
-                    this.yGridPos -= 1;
-                }
-                break;
-            }
-        }
-    }
+    //     switch(this.selectedGridId) {
+    //         case 1 : {
+    //             if (this.mapGrid.mazeGrid[this.xGridPos - 1][this.yGridPos] != 0) {
+    //                 this.xGridPos -= 1;
+    //             }
+    //             break;
+    //         }
+    //         case 5 : {
+    //             if (this.mapGrid.mazeGrid[this.xGridPos][this.yGridPos + 1] != 0) {
+    //                 this.yGridPos += 1;
+    //             }
+    //             break;
+    //         }
+    //         case 7 : {
+    //             if (this.mapGrid.mazeGrid[this.xGridPos + 1][this.yGridPos] != 0) {
+    //                 this.xGridPos += 1;
+    //             }
+    //             break;
+    //         }
+    //         case 3 : {
+    //             if (this.mapGrid.mazeGrid[this.xGridPos][this.yGridPos - 1] != 0) {
+    //                 this.yGridPos -= 1;
+    //             }
+    //             break;
+    //         }
+    //     }
+    // }
     updateGridPosition() { //this only happens when a new grid needed, not right after click... its also just the logical grid
         
         //Reset floor collision zones.

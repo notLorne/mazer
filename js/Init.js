@@ -85,8 +85,6 @@ window.onload = () => {
             script.async = false;
             document.head.appendChild(script);
         }
-        
-
 
         loadScript("js/alphaBin.js");
         loadScript("js/colorPalette.js");
@@ -103,7 +101,6 @@ window.onload = () => {
         loadScript("js/TextBox.js");
 
         loadScript("js/Scene.js");
-
 
         loadScript("js/Controller.js");
         loadScript("js/App.js");
